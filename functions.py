@@ -18,7 +18,7 @@ def apply_vegetative_index(img, index_type):
     Parameters:
         img: The image for which you want the vegetative index of each pixel, 
             in BGR (This function assumes that you have used cv2.imread() in order to load in this photo)
-        index_type: The Vegetative index you'd like to use. Options: exg, exr
+        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi
     Returns:
         vegetated_img: A grayscale image that maps value to vegetative index of each pixel
         
@@ -37,6 +37,15 @@ def apply_vegetative_index(img, index_type):
     elif index_type == 'exr':
         # Calculate the index
         index = (1.4 * r - g) / g + r + b
+
+    # Green-Red Vegetation Index (GRVI)
+    elif index_type == 'grvi':
+        # Calculate the index
+        index = (g - r) / (g + r)
+
+    else:
+        print('The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi')
+
 
     # Normalize index to range [0, 255] for visualization
     normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
