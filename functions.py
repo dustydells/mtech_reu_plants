@@ -4,7 +4,7 @@ import cv2
 # Non-local means de-noising
 def nl_means_denoise():
     pass
-
+    
 # Make array of HSV (maybe also include RGB) histograms
 def histogram_array():
     pass
@@ -23,7 +23,6 @@ def apply_vegetative_index(img, index_type):
         vegetated_img: A grayscale image that maps value to vegetative index of each pixel
         
     '''
-
     # Extract the red, green, and blue channels
     r = img[:, :, 2].astype(float)
     g = img[:, :, 1].astype(float)
