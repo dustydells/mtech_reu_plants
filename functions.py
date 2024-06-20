@@ -14,11 +14,12 @@ def histogram_array():
 def apply_vegetative_index(img, index_type):
     '''
     Calculate the specified vegetative index and apply it to the image. 
+    Note that "+ 1e-6" is added any time it could help prevent divide-by-zero errors. 
 
     Parameters:
         img: The image for which you want the vegetative index of each pixel, 
             in BGR (This function assumes that you have used cv2.imread() in order to load in this photo)
-        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi
+        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi, vari, rgbvi, exg-exr
     Returns:
         vegetated_img: A grayscale image that maps value to vegetative index of each pixel
         
@@ -30,21 +31,33 @@ def apply_vegetative_index(img, index_type):
 
     # Excess Green (ExG)
     if index_type == 'exg':
-        # Calculate the index
         index = 2 * g - r - b
 
     # Excess Red (ExR)
     elif index_type == 'exr':
-        # Calculate the index
-        index = (1.4 * r - g) / g + r + b
+        index = (1.4 * r - g) / g + r + b + 1e-6
 
     # Green-Red Vegetation Index (GRVI)
     elif index_type == 'grvi':
-        # Calculate the index
-        index = (g - r) / (g + r)
+        index = (g - r) / (g + r + 1e-6)
+
+    # Visible Atmospherically Resistant Index (VARI)
+    elif index_type == 'vari':
+        index = (g - r) / (g + r - b + 1e-6)
+
+    # Red-Green-Blue Vegetation Index (RGBVI)
+    elif index_type == 'rgbvi':
+        index = (g**2 - r * b) / (g**2 + r * b + 1e-6)
+
+    # ExG - ExR
+    elif index_type == 'exg-exr':
+        exg = 2 * g - r - b
+        exr = (1.4 * r - g) / g + r + b + 1e-6
+        index = exg - exr
+
 
     else:
-        print('The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi')
+        print('The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, vari, rgbvi, exg-exr')
 
 
     # Normalize index to range [0, 255] for visualization
