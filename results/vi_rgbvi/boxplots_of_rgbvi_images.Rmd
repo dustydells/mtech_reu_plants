@@ -1,0 +1,65 @@
+---
+title: "R Notebook"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+
+```{r libraries, warning=FALSE}
+library(tidyverse)
+library(rasterVis)
+library(raster)
+library(OpenImageR)
+library(RImagePalette)
+library(jpeg)
+library(sp)
+library(lattice)
+library(latticeExtra)
+library(egg)
+```
+
+
+```{r define_function}
+img_into_dataframe <- function(file_name_list) {
+  
+  path <- c('results/vi_rgbvi', file_name_list)
+  
+  # Read in the image
+  img <- stack(path)
+  
+  # # Show the image
+  # plotRGB(img, 1, 2, 3)
+  
+  # Flatten the image into a vector (1D array)
+  img_vector <- as.vector(img)
+  
+  # Convert that vector into a single column dataframe.
+  img_df <- data.frame(pixel_intensity = img_vector)
+  
+  return(img_df)
+  
+}
+```
+
+
+```{r}
+# Save file paths in the RGBVI results folder in a vector
+# Set directory to the correct folder
+setwd('results/vi_rgbvi')
+# Save list of file names in a variable
+file_name_list <- dir()
+
+# Run img_into_dataframe function on every file in the folder
+img_df <- sapply(file_name_list, img_into_dataframe)
+```
+
+
+```{r render_boxplot}
+ggplot(img_df) +
+  geom_boxplot(aes(x = pixel_intensity)) +
+  theme_classic()
+
+
+```
