@@ -1754,8 +1754,10 @@ display: none;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHJhc3RlclZpcylcbmxpYnJhcnkocmFzdGVyKVxubGlicmFyeShPcGVuSW1hZ2VSKVxubGlicmFyeShSSW1hZ2VQYWxldHRlKVxubGlicmFyeShqcGVnKVxubGlicmFyeShzcClcbmxpYnJhcnkobGF0dGljZSlcbmxpYnJhcnkobGF0dGljZUV4dHJhKVxubGlicmFyeShlZ2cpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHJhc3RlclZpcylcbmxpYnJhcnkocmFzdGVyKVxubGlicmFyeShPcGVuSW1hZ2VSKVxubGlicmFyeShSSW1hZ2VQYWxldHRlKVxubGlicmFyeShqcGVnKVxubGlicmFyeShzcClcbmxpYnJhcnkobGF0dGljZSlcbmxpYnJhcnkobGF0dGljZUV4dHJhKVxubGlicmFyeShlZ2cpXG5gYGBcbmBgYFxuYGBgIn0= -->
+<pre class="r"><code>```r
+```r
+library(tidyverse)
 library(rasterVis)
 library(raster)
 library(OpenImageR)
@@ -1765,46 +1767,37 @@ library(sp)
 library(lattice)
 library(latticeExtra)
 library(egg)</code></pre>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcXF9fcHljYWNoZV9fXFwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxcYXBwbHlfdmVnZXRhdGl2ZV9pbmRleC5pcHluYlxcICAgICAgICAgICAgXFxib3hwbG90c19vZl9yZ2J2aV9pbWFnZXMubmIuaHRtbFxcICAgICAgIFxuIFs0XSBcXGJveHBsb3RzX29mX3JnYnZpX2ltYWdlcy5SbWRcXCAgICAgICAgICAgIFxcZGVub2lzaW5nX21ldGhvZF9pbnZlc3RpZ2F0aW9uLmlweW5iXFwgICAgXFxmdW5jdGlvbnMucHlcXCAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs3XSBcXGhzdl9jb2xvcl9waWNrZXIucG5nXFwgICAgICAgICAgICAgICAgICAgIFxcbXRlY2hfcmV1X3BsYW50cy5ScHJvalxcICAgICAgICAgICAgICAgICAgXFxxdWFkcmF0X3Bob3Rvc19yYXdcXCAgICAgICAgICAgICAgICAgICAgIFxuWzEwXSBcXFJFQURNRS5tZFxcICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxccmVzdWx0c1xcICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXFxyZ2JfY2hhbm5lbHNfM0RfcGxvdC5pcHluYlxcICAgICAgICAgICAgIFxuWzEzXSBcXHNhbmRib3guaXB5bmJcXCAgICAgICAgICAgICAgICAgICAgICAgICAgIFxcc2VnbWVudGF0aW9uX21ldGhvZF9pbnZlc3RpZ2F0aW9uLmlweW5iXFwgXFx0ZXN0X3Bob3Rvc1xcICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code> [1] \__pycache__\                             \apply_vegetative_index.ipynb\            \boxplots_of_rgbvi_images.nb.html\       
+ [4] \boxplots_of_rgbvi_images.Rmd\            \denoising_method_investigation.ipynb\    \functions.py\                           
+ [7] \hsv_color_picker.png\                    \mtech_reu_plants.Rproj\                  \quadrat_photos_raw\                     
+[10] \README.md\                               \results\                                 \rgb_channels_3D_plot.ipynb\             
+[13] \sandbox.ipynb\                           \segmentation_method_investigation.ipynb\ \test_photos\                            </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW1nX2ludG9fZGF0YWZyYW1lIDwtIGZ1bmN0aW9uKGZpbGVfbmFtZV9saXN0KSB7XG4gIFxuICBwYXRoIDwtIGMoJ3Jlc3VsdHMvdmlfcmdidmknLCBmaWxlX25hbWVfbGlzdClcbiAgXG4gICMgUmVhZCBpbiB0aGUgaW1hZ2VcbiAgaW1nIDwtIHN0YWNrKHBhdGgpXG4gIFxuICAjICMgU2hvdyB0aGUgaW1hZ2VcbiAgIyBwbG90UkdCKGltZywgMSwgMiwgMylcbiAgXG4gICMgRmxhdHRlbiB0aGUgaW1hZ2UgaW50byBhIHZlY3RvciAoMUQgYXJyYXkpXG4gIGltZ192ZWN0b3IgPC0gYXMudmVjdG9yKGltZylcbiAgXG4gICMgQ29udmVydCB0aGF0IHZlY3RvciBpbnRvIGEgc2luZ2xlIGNvbHVtbiBkYXRhZnJhbWUuXG4gIGltZ19kZiA8LSBkYXRhLmZyYW1lKHBpeGVsX2ludGVuc2l0eSA9IGltZ192ZWN0b3IpXG4gIFxuICByZXR1cm4oaW1nX2RmKVxuICBcbn1cbmBgYCJ9 -->
-<pre class="r"><code>img_into_dataframe &lt;- function(file_name_list) {
-  
-  path &lt;- c(&#39;results/vi_rgbvi&#39;, file_name_list)
-  
-  # Read in the image
-  img &lt;- stack(path)
-  
-  # # Show the image
-  # plotRGB(img, 1, 2, 3)
-  
-  # Flatten the image into a vector (1D array)
-  img_vector &lt;- as.vector(img)
-  
-  # Convert that vector into a single column dataframe.
-  img_df &lt;- data.frame(pixel_intensity = img_vector)
-  
-  return(img_df)
-  
-}</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW1nX2ludG9fZGF0YWZyYW1lIDwtIGZ1bmN0aW9uKGZpbGVfbmFtZV9kZiRmaWxlbmFtZSkge1xuYGBgIn0= -->
+<pre class="r"><code>img_into_dataframe &lt;- function(file_name_df$filename) {</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IHVuZXhwZWN0ZWQgJyQnIGluIFwiaW1nX2ludG9fZGF0YWZyYW1lIDwtIGZ1bmN0aW9uKGZpbGVfbmFtZV9kZiRcIlxuIn0= -->
+<pre><code>Error: unexpected &#39;$&#39; in &quot;img_into_dataframe &lt;- function(file_name_df$&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBTYXZlIGZpbGUgcGF0aHMgaW4gdGhlIFJHQlZJIHJlc3VsdHMgZm9sZGVyIGluIGEgdmVjdG9yXG4jIFNldCBkaXJlY3RvcnkgdG8gdGhlIGNvcnJlY3QgZm9sZGVyXG5zZXR3ZCgncmVzdWx0cy92aV9yZ2J2aScpXG4jIFNhdmUgbGlzdCBvZiBmaWxlIG5hbWVzIGluIGEgdmFyaWFibGVcbmZpbGVfbmFtZV9saXN0IDwtIGRpcigpXG5cbiMgUnVuIGltZ19pbnRvX2RhdGFmcmFtZSBmdW5jdGlvbiBvbiBldmVyeSBmaWxlIGluIHRoZSBmb2xkZXJcbmltZ19kZiA8LSBzYXBwbHkoZmlsZV9uYW1lX2xpc3QsIGltZ19pbnRvX2RhdGFmcmFtZSlcbmBgYCJ9 -->
-<pre class="r"><code># Save file paths in the RGBVI results folder in a vector
-# Set directory to the correct folder
-setwd(&#39;results/vi_rgbvi&#39;)
-# Save list of file names in a variable
-file_name_list &lt;- dir()
-
-# Run img_into_dataframe function on every file in the folder
-img_df &lt;- sapply(file_name_list, img_into_dataframe)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSdW4gaW1nX2ludG9fZGF0YWZyYW1lIGZ1bmN0aW9uIG9uIGV2ZXJ5IGZpbGUgaW4gdGhlIGZvbGRlclxuaW1nX2RmIDwtIHNhcHBseShmaWxlX25hbWVfZGYkZmlsZW5hbWUsIGltZ19pbnRvX2RhdGFmcmFtZSlcblxuYGBgIn0= -->
+<pre class="r"><code># Run img_into_dataframe function on every file in the folder
+img_df &lt;- sapply(file_name_df$filename, img_into_dataframe)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gRlVOKFhbW2ldXSwgLi4uKSA6IHVudXNlZCBhcmd1bWVudCAoWFtbaV1dKVxuIn0= -->
+<pre><code>Error in FUN(X[[i]], ...) : unused argument (X[[i]])</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -1818,7 +1811,7 @@ ggplot(img_df) +
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQ0KLS0tDQoNCg0KDQpgYGB7ciBsaWJyYXJpZXMsIHdhcm5pbmc9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkocmFzdGVyVmlzKQ0KbGlicmFyeShyYXN0ZXIpDQpsaWJyYXJ5KE9wZW5JbWFnZVIpDQpsaWJyYXJ5KFJJbWFnZVBhbGV0dGUpDQpsaWJyYXJ5KGpwZWcpDQpsaWJyYXJ5KHNwKQ0KbGlicmFyeShsYXR0aWNlKQ0KbGlicmFyeShsYXR0aWNlRXh0cmEpDQpsaWJyYXJ5KGVnZykNCmBgYA0KDQoNCmBgYHtyIGRlZmluZV9mdW5jdGlvbn0NCmltZ19pbnRvX2RhdGFmcmFtZSA8LSBmdW5jdGlvbihmaWxlX25hbWVfbGlzdCkgew0KICANCiAgcGF0aCA8LSBjKCdyZXN1bHRzL3ZpX3JnYnZpJywgZmlsZV9uYW1lX2xpc3QpDQogIA0KICAjIFJlYWQgaW4gdGhlIGltYWdlDQogIGltZyA8LSBzdGFjayhwYXRoKQ0KICANCiAgIyAjIFNob3cgdGhlIGltYWdlDQogICMgcGxvdFJHQihpbWcsIDEsIDIsIDMpDQogIA0KICAjIEZsYXR0ZW4gdGhlIGltYWdlIGludG8gYSB2ZWN0b3IgKDFEIGFycmF5KQ0KICBpbWdfdmVjdG9yIDwtIGFzLnZlY3RvcihpbWcpDQogIA0KICAjIENvbnZlcnQgdGhhdCB2ZWN0b3IgaW50byBhIHNpbmdsZSBjb2x1bW4gZGF0YWZyYW1lLg0KICBpbWdfZGYgPC0gZGF0YS5mcmFtZShwaXhlbF9pbnRlbnNpdHkgPSBpbWdfdmVjdG9yKQ0KICANCiAgcmV0dXJuKGltZ19kZikNCiAgDQp9DQpgYGANCg0KDQpgYGB7cn0NCiMgU2F2ZSBmaWxlIHBhdGhzIGluIHRoZSBSR0JWSSByZXN1bHRzIGZvbGRlciBpbiBhIHZlY3Rvcg0KIyBTZXQgZGlyZWN0b3J5IHRvIHRoZSBjb3JyZWN0IGZvbGRlcg0Kc2V0d2QoJ3Jlc3VsdHMvdmlfcmdidmknKQ0KIyBTYXZlIGxpc3Qgb2YgZmlsZSBuYW1lcyBpbiBhIHZhcmlhYmxlDQpmaWxlX25hbWVfbGlzdCA8LSBkaXIoKQ0KDQojIFJ1biBpbWdfaW50b19kYXRhZnJhbWUgZnVuY3Rpb24gb24gZXZlcnkgZmlsZSBpbiB0aGUgZm9sZGVyDQppbWdfZGYgPC0gc2FwcGx5KGZpbGVfbmFtZV9saXN0LCBpbWdfaW50b19kYXRhZnJhbWUpDQpgYGANCg0KDQpgYGB7ciByZW5kZXJfYm94cGxvdH0NCg0KZ2dwbG90KGltZ19kZikgKw0KICBnZW9tX2JveHBsb3QoYWVzKHggPSBwaXhlbF9pbnRlbnNpdHkpKSArDQogIHRoZW1lX2NsYXNzaWMoKQ0KDQoNCmBgYA0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCmVkaXRvcl9vcHRpb25zOiANCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQ0KLS0tDQoNCg0KDQpgYGB7ciBsaWJyYXJpZXMsIHdhcm5pbmc9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkocmFzdGVyVmlzKQ0KbGlicmFyeShyYXN0ZXIpDQpsaWJyYXJ5KE9wZW5JbWFnZVIpDQpsaWJyYXJ5KFJJbWFnZVBhbGV0dGUpDQpsaWJyYXJ5KGpwZWcpDQpsaWJyYXJ5KHNwKQ0KbGlicmFyeShsYXR0aWNlKQ0KbGlicmFyeShsYXR0aWNlRXh0cmEpDQpsaWJyYXJ5KGVnZykNCmBgYA0KDQoNCmBgYHtyIGRlZmluZV9mdW5jdGlvbn0NCmltZ19pbnRvX2RhdGFmcmFtZSA8LSBmdW5jdGlvbigpIHsNCiAgDQogICMgUmVhZCBpbiB0aGUgaW1hZ2UNCiAgaW1nIDwtIHN0YWNrKCkNCiAgDQogICMgIyBTaG93IHRoZSBpbWFnZQ0KICAjIHBsb3RSR0IoaW1nLCAxLCAyLCAzKQ0KICANCiAgIyBGbGF0dGVuIHRoZSBpbWFnZSBpbnRvIGEgdmVjdG9yICgxRCBhcnJheSkNCiAgaW1nX3ZlY3RvciA8LSBhcy52ZWN0b3IoaW1nKQ0KICANCiAgIyBDb252ZXJ0IHRoYXQgdmVjdG9yIGludG8gYSBzaW5nbGUgY29sdW1uIGRhdGFmcmFtZS4NCiAgaW1nX2RmIDwtIGRhdGEuZnJhbWUocGl4ZWxfaW50ZW5zaXR5ID0gaW1nX3ZlY3RvcikNCiAgDQogIHJldHVybihpbWdfZGYpDQogIA0KfQ0KYGBgDQoNCg0KYGBge3J9DQojIFNhdmUgZmlsZSBwYXRocyBpbiB0aGUgUkdCVkkgcmVzdWx0cyBmb2xkZXIgaW4gYSB2ZWN0b3INCiMgU2V0IGRpcmVjdG9yeSB0byB0aGUgY29ycmVjdCBmb2xkZXINCnNldHdkKCdyZXN1bHRzL3ZpX3JnYnZpJykNCg0KIyBTYXZlIGxpc3Qgb2YgaW1hZ2UgZmlsZSBuYW1lcyBpbiBhIHZhcmlhYmxlDQpmaWxlX25hbWVfbGlzdCA8LSBkaXIocGF0dGVybiA9ICdqcGcnKQ0KDQojIE1ha2UgYSBkYXRhZnJhbWUgb3V0IG9mIHRoZSBmaWxlX25hbWVfbGlzdA0KZmlsZV9uYW1lX2RmIDwtIGRhdGEuZnJhbWUoZmlsZW5hbWUgPSBmaWxlX25hbWVfbGlzdCkgJT4lIA0KICAjIENvbmNhdGVuYXRlIGJlZ2lubmluZyBvZiBmaWxlIHBhdGggdG8gZWFjaCBmaWxlIA0KICBtdXRhdGUoZmlsZW5hbWUgPSBwYXN0ZSgncmVzdWx0cy92aV9yZ2J2aS8nLCBmaWxlbmFtZSwgc2VwPScnKSkNCg0KIyBSdW4gaW1nX2ludG9fZGF0YWZyYW1lIGZ1bmN0aW9uIG9uIGV2ZXJ5IGZpbGUgaW4gdGhlIGZvbGRlcg0KaW1nX2RmIDwtIHNhcHBseShmaWxlX25hbWVfZGYkZmlsZW5hbWUsIGltZ19pbnRvX2RhdGFmcmFtZSkNCmBgYA0KDQoNCmBgYHtyIHJlbmRlcl9ib3hwbG90fQ0KDQpnZ3Bsb3QoaW1nX2RmKSArDQogIGdlb21fYm94cGxvdChhZXMoeCA9IHBpeGVsX2ludGVuc2l0eSkpICsNCiAgdGhlbWVfY2xhc3NpYygpDQoNCg0KYGBgDQo=</div>
 
 
 

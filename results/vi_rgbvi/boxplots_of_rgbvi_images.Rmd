@@ -22,12 +22,10 @@ library(egg)
 
 
 ```{r define_function}
-img_into_dataframe <- function(file_name_list) {
-  
-  path <- c('results/vi_rgbvi', file_name_list)
+img_into_dataframe <- function() {
   
   # Read in the image
-  img <- stack(path)
+  img <- stack()
   
   # # Show the image
   # plotRGB(img, 1, 2, 3)
@@ -48,11 +46,17 @@ img_into_dataframe <- function(file_name_list) {
 # Save file paths in the RGBVI results folder in a vector
 # Set directory to the correct folder
 setwd('results/vi_rgbvi')
-# Save list of file names in a variable
-file_name_list <- dir()
+
+# Save list of image file names in a variable
+file_name_list <- dir(pattern = 'jpg')
+
+# Make a dataframe out of the file_name_list
+file_name_df <- data.frame(filename = file_name_list) %>% 
+  # Concatenate beginning of file path to each file 
+  mutate(filename = paste('results/vi_rgbvi/', filename, sep=''))
 
 # Run img_into_dataframe function on every file in the folder
-img_df <- sapply(file_name_list, img_into_dataframe)
+img_df <- sapply(file_name_df$filename, img_into_dataframe)
 ```
 
 
