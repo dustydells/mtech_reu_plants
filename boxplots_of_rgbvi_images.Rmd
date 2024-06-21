@@ -57,6 +57,7 @@ img_df <- sapply(file_name_list, img_into_dataframe)
 
 
 ```{r render_boxplot}
+
 ggplot(img_df) +
   geom_boxplot(aes(x = pixel_intensity)) +
   theme_classic()
