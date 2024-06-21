@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import re
 
 # Non-local means de-noising
 def nl_means_denoise():
@@ -68,3 +69,17 @@ def apply_vegetative_index(img, index_type):
 
     return vegetated_img
 
+# Reorder the list of files for looping through
+def reorder_test_photos(path):
+    '''
+    This function exists because I've rearranged the images so often that the operating system
+    no longer stores them in number order (image_0, image_1, and so on). This function returns
+    an ordered list of all the files that are currenty in the specified folder. It should be able
+    to handle additions to the folder. 
+
+    Parameters:
+        path of the folder you want to loop through 
+    Returns: 
+        List of file paths to be run from the main project directory. It is in order of whatever
+        number is in the filename. 
+    '''
