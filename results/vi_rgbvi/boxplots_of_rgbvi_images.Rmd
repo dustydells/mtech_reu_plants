@@ -22,19 +22,20 @@ library(egg)
 
 
 ```{r define_function}
-img_into_dataframe <- function() {
+img_into_dataframe <- function(filename) {
   
   # Read in the image
-  img <- stack()
-  
-  # # Show the image
-  # plotRGB(img, 1, 2, 3)
+  img <- readJPEG(filename)
   
   # Flatten the image into a vector (1D array)
   img_vector <- as.vector(img)
   
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector)
+  
+  img_df <- img_df %>% 
+    # Add a column that says which file the pixel vector is from
+    mutate(filename = filename)
   
   return(img_df)
   
@@ -57,6 +58,22 @@ file_name_df <- data.frame(filename = file_name_list) %>%
 
 # Run img_into_dataframe function on every file in the folder
 img_df <- sapply(file_name_df$filename, img_into_dataframe)
+```
+
+```{r}
+# Set directory to the correct folder
+setwd('results/vi_rgbvi')
+
+# Save list of image file names in a variable
+filenames <- dir(pattern = 'jpg')
+
+img_dfs <- lapply(filenames, img_into_dataframe)
+
+
+
+# Combine all dataframes into one. Running this crashed rstudio. 
+img_df <- do.call(rbind, img_dfs)
+
 ```
 
 
