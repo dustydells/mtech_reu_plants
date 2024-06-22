@@ -18,11 +18,12 @@ library(sp)
 library(lattice)
 library(latticeExtra)
 library(egg)
+library(ggbeeswarm)
 ```
 
 
 ```{r define_function}
-img_into_dataframe <- function(filename) {
+img_into_dataframe_into_boxplot <- function(filename) {
   
   # Read in the image
   img <- readJPEG(filename)
@@ -33,9 +34,7 @@ img_into_dataframe <- function(filename) {
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector)
   
-  img_df <- img_df %>% 
-    # Add a column that says which file the pixel vector is from
-    mutate(filename = filename)
+  
   
   return(img_df)
   
@@ -60,6 +59,7 @@ file_name_df <- data.frame(filename = file_name_list) %>%
 img_df <- sapply(file_name_df$filename, img_into_dataframe)
 ```
 
+CURSED CHUNK OF CODE HANDLE WITH CARE
 ```{r}
 # Set directory to the correct folder
 setwd('results/vi_rgbvi')
@@ -72,16 +72,24 @@ img_dfs <- lapply(filenames, img_into_dataframe)
 
 
 # Combine all dataframes into one. Running this crashed rstudio. 
-img_df <- do.call(rbind, img_dfs)
+# img_df <- do.call(rbind, img_dfs)
 
 ```
 
 
 ```{r render_boxplot}
 
+img_df <- img_into_dataframe_into_boxplot('image_1.jpg')
+
 ggplot(img_df) +
-  geom_boxplot(aes(x = pixel_intensity)) +
-  theme_classic()
+  geom_violin(aes(x = pixel_intensity, y = 1)) +
+  geom_rug() +
+  coord_flip() +
+  theme(
+    panel.background = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_blank()
+  )
 
 
 ```
