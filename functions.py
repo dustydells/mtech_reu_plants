@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 import re
 import glob
+from skimage import img_as_float, img_as_ubyte
+import skimage.filters as skfil
 
 # Non-local means de-noising
 def nl_means_denoise():
@@ -96,6 +98,31 @@ def reorder_file_paths(path):
     files = sorted(glob.glob(path), key=sorting_function)
 
     return files
+
+# Apply otsu threshold to an image
+def apply_otsu(img):
+    '''
+    Apply the otsu thresholding filter to an image. 
+
+    Parameters:
+        img: An image
+    Returns: 
+        img_ubyte: A binary image that has had the otsu threshold applied to it
+    '''
+        
+    # Convert image into float
+    img_float = img_as_float(img)
+
+    # Apply otsu threshold
+    thresh_otsu = skfil.threshold_otsu(img_float)
+
+    # If image is <= to the threshold number, it's True. False otherwise.
+    binary_otsu = img_float <= thresh_otsu
+
+    # Convert back to ubyte
+    img_ubyte = img_as_ubyte(binary_otsu)
+
+    return img_ubyte
 
 
 # path = 'quadrat_photos_raw/*'
