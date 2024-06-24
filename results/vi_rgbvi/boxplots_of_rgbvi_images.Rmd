@@ -103,6 +103,15 @@ ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
 
 ```{r run_remaining_plots,fig.width=1.5, fig.height=5}
 
+# Set directory to the correct folder
+setwd('results/vi_rgbvi')
+
+# Save list of image file names in a variable
+filenames <- dir(pattern = 'jpg')
+
+# Apply function to all the images in the test folder
+img_dfs <- lapply(filenames, img_into_dataframe)
+
 
 
 ```
