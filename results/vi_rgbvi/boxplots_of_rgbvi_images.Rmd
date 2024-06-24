@@ -7,7 +7,7 @@ editor_options:
 
 
 
-```{r libraries, warning=FALSE}
+```{r libraries, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(rasterVis)
 library(raster)
@@ -77,19 +77,33 @@ img_dfs <- lapply(filenames, img_into_dataframe)
 ```
 
 
-```{r render_boxplot}
+```{r render_first_boxplot, fig.width=1.5, fig.height=5}
 
-img_df <- img_into_dataframe_into_boxplot('image_1.jpg')
+filename = 'image_0.jpg'
 
-ggplot(img_df) +
-  geom_violin(aes(x = pixel_intensity, y = 1)) +
-  geom_rug() +
+img_df <- img_into_dataframe_into_boxplot(filename)
+
+ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+  geom_boxplot(fill = 'olivedrab') +
   coord_flip() +
+  labs(
+    x = 'Pixel Intensity',
+    y = filename
+  ) +
   theme(
     panel.background = element_blank(),
     axis.ticks = element_blank(),
-    axis.text.x = element_blank()
-  )
+    axis.text.x = element_blank(),
+    panel.grid = element_blank(),
+    panel.grid.major.y = element_line('gray75')
+    )
 
 
 ```
+
+```{r run_remaining_plots,fig.width=1.5, fig.height=5}
+
+
+
+```
+
