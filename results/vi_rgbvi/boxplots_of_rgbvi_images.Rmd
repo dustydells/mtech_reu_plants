@@ -99,7 +99,7 @@ plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
     )
 
 plot_name <- paste0('boxplot_image_', 0, '.jpg')
-path <- 'results/vi_rgbvi_boxplots'
+path <- '../vi_rgbvi_boxplots'
 
 ggsave(filename=plot_name, plot=plot, path=path)
 
