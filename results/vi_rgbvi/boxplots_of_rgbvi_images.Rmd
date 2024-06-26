@@ -83,7 +83,7 @@ filename = 'image_0.jpg'
 
 img_df <- img_into_dataframe_into_boxplot(filename)
 
-ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
   geom_boxplot(fill = 'olivedrab') +
   coord_flip() +
   labs(
@@ -97,6 +97,11 @@ ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
     panel.grid = element_blank(),
     panel.grid.major.y = element_line('gray75')
     )
+
+plot_name <- paste0('boxplot_image_', 0, '.jpg')
+path <- 'results/vi_rgbvi_boxplots'
+
+ggsave(plot_name, plot, path)
 
 
 ```
