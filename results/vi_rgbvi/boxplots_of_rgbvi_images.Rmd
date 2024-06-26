@@ -79,7 +79,7 @@ img_dfs <- lapply(filenames, img_into_dataframe)
 
 ```{r render_first_boxplot, fig.width=1.5, fig.height=5}
 
-filename = 'image_0.jpg'
+file_name = 'image_0.jpg'
 
 img_df <- img_into_dataframe_into_boxplot(filename)
 
@@ -88,7 +88,7 @@ plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
   coord_flip() +
   labs(
     x = 'Pixel Intensity',
-    y = filename
+    y = file_name
   ) +
   theme(
     panel.background = element_blank(),
@@ -101,7 +101,7 @@ plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
 plot_name <- paste0('boxplot_image_', 0, '.jpg')
 path <- 'results/vi_rgbvi_boxplots'
 
-ggsave(plot_name, plot, path)
+ggsave(filename=plot_name, plot=plot, path=path)
 
 
 ```
