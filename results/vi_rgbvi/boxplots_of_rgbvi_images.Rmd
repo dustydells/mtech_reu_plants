@@ -67,7 +67,10 @@ setwd('results/vi_rgbvi')
 # Save list of image file names in a variable
 filenames <- dir(pattern = 'jpg')
 
-img_dfs <- lapply(filenames, img_into_dataframe)
+# Remove image_0 from the list (it's different from the others because it uses a y-axis label. Won't be necessary when plots are arranged in a grid)
+filenames <- filenames[-1]
+
+# img_dfs <- lapply(filenames, img_into_dataframe)
 
 
 
