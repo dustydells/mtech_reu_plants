@@ -23,7 +23,7 @@ library(ggbeeswarm)
 
 
 ```{r define_function}
-img_into_dataframe_into_boxplot <- function(file_name) {
+img_into_dataframe_into_boxplot <- function(file_name, path) {
   
   # Read in the image
   img <- readJPEG(file_name)
@@ -39,20 +39,18 @@ img_into_dataframe_into_boxplot <- function(file_name) {
     geom_boxplot(fill = 'olivedrab') +
     coord_flip() +
     labs(
-      x = '',
+      x = 'Pixel Luminosity',
       y = file_name
     ) +
     theme(
       panel.background = element_blank(),
       axis.ticks = element_blank(),
-      axis.title.y = element_blank(),
-      axis.text = element_blank(),
+      axis.text.x = element_blank(),
       panel.grid = element_blank(),
       panel.grid.major.y = element_line('gray75')
       )
   
   plot_name <- paste0('boxplot_', file_name)
-  path <- '../vi_rgbvi_boxplots'
   
   ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
   
@@ -142,8 +140,12 @@ filenames <- dir(pattern = 'jpg')
 img_dfs <- lapply(filenames, img_into_dataframe_into_boxplot)
 
 
-# Test new image on one image first
-img_into_dataframe_into_boxplot("image_10.jpg")
+# Test new image on one image
+img_into_dataframe_into_boxplot(file_name="image_6.jpg", path='../vi_rgbvi_boxplots_greenhouse')
+
+# Now do it on the rest. heaven help my computer. 
+lapply(filenames, img_into_dataframe_into_boxplot)
+
 
 
 # PUT THIS IN FUNCTION?
@@ -174,5 +176,15 @@ img_into_dataframe_into_boxplot("image_10.jpg")
 # ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
 # 
 
+```
+
+```{r stitch_boxplots_together}
+
+
+# Set directory to the correct folder
+setwd('results/vi_rgbvi_boxplots_greenhouse')
+
+# Save list of image file names in a variable
+filenames <- dir(pattern = 'jpg')
 ```
 
