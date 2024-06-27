@@ -23,10 +23,10 @@ library(ggbeeswarm)
 
 
 ```{r define_function}
-img_into_dataframe_into_boxplot <- function(filename) {
+img_into_dataframe_into_boxplot <- function(file_name) {
   
   # Read in the image
-  img <- readJPEG(filename)
+  img <- readJPEG(file_name)
   
   # Flatten the image into a vector (1D array)
   img_vector <- as.vector(img)
@@ -34,9 +34,30 @@ img_into_dataframe_into_boxplot <- function(filename) {
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector)
   
+  # Build the plot
+  plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+    geom_boxplot(fill = 'olivedrab') +
+    coord_flip() +
+    labs(
+      x = '',
+      y = file_name
+    ) +
+    theme(
+      panel.background = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text = element_blank(),
+      panel.grid = element_blank(),
+      panel.grid.major.y = element_line('gray75')
+      )
   
+  plot_name <- paste0('boxplot_', file_name)
+  path <- '../vi_rgbvi_boxplots'
   
-  return(img_df)
+  ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
+  
+  message(paste("Plot saved for:", file_name))
+
   
 }
 ```
@@ -84,7 +105,7 @@ filenames <- filenames[-1]
 
 file_name = 'image_0.jpg'
 
-img_df <- img_into_dataframe_into_boxplot(filename)
+img_df <- img_into_dataframe_into_boxplot(file_name)
 
 plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
   geom_boxplot(fill = 'olivedrab') +
@@ -104,7 +125,7 @@ plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
 plot_name <- paste0('boxplot_image_', 0, '.jpg')
 path <- '../vi_rgbvi_boxplots'
 
-ggsave(filename=plot_name, plot=plot, path=path)
+ggsave(filename=plot_name, plot=plot, path=path, width=1.5, height = 8)
 
 
 ```
@@ -118,9 +139,40 @@ setwd('results/vi_rgbvi')
 filenames <- dir(pattern = 'jpg')
 
 # Apply function to all the images in the test folder
-img_dfs <- lapply(filenames, img_into_dataframe)
+img_dfs <- lapply(filenames, img_into_dataframe_into_boxplot)
 
 
+# Test new image on one image first
+img_into_dataframe_into_boxplot("image_10.jpg")
+
+
+# PUT THIS IN FUNCTION?
+# file_name = 'image_1.jpg'
+# 
+# img_df <- img_into_dataframe_into_boxplot(file_name)
+# 
+# # Build the plot
+# plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+#   geom_boxplot(fill = 'olivedrab') +
+#   coord_flip() +
+#   labs(
+#     x = '',
+#     y = file_name
+#   ) +
+#   theme(
+#     panel.background = element_blank(),
+#     axis.ticks = element_blank(),
+#     axis.title.y = element_blank(),
+#     axis.text = element_blank(),
+#     panel.grid = element_blank(),
+#     panel.grid.major.y = element_line('gray75')
+#     )
+# 
+# plot_name <- paste0('boxplot_image_', 1, '.jpg')
+# path <- '../vi_rgbvi_boxplots'
+# 
+# ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
+# 
 
 ```
 
