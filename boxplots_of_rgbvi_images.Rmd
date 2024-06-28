@@ -188,3 +188,26 @@ setwd('results/vi_rgbvi_boxplots_greenhouse')
 filenames <- dir(pattern = 'jpg')
 ```
 
+```{r apply_to_all_greenhouse_imgs}
+
+# Define the path
+output_dir <- 'results/greenhouse_photos_thresholded'
+
+# Check if the directory exists
+if (!dir.exists(output_dir)) {
+  # Create the directory
+  dir.create(output_dir, recursive = TRUE)
+}
+
+# Set the working directory
+setwd(output_dir)
+
+# Set directory to the correct folder
+setwd('results/greenhouse_photos_thresholded')
+
+# Save list of image file names in a variable
+filenames <- dir(pattern = 'jpg')
+
+
+```
+
