@@ -81,7 +81,8 @@ def reorder_file_paths(path):
     to handle additions to the folder. 
 
     Parameters:
-        Path of the folder you want to loop through 
+        Path of the folder you want to loop through (In this format results/greenhouse_photos_thresholded/*
+        for example. The asterisk is necessary or else the glob thingy won't work.)
     Returns: 
         List of file paths to be run from the main project directory. It is in order of whatever
         number is in the filename. 
