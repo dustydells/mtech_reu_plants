@@ -23,7 +23,7 @@ library(ggbeeswarm)
 
 
 ```{r define_function}
-img_into_dataframe_into_boxplot <- function(file_name, path) {
+img_into_dataframe_into_boxplot <- function(file_name, outputdir) {
   
   # Read in the image
   img <- readJPEG(file_name)
@@ -52,7 +52,7 @@ img_into_dataframe_into_boxplot <- function(file_name, path) {
   
   plot_name <- paste0('boxplot_', file_name)
   
-  ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
+  ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
   
   message(paste("Plot saved for:", file_name))
 
@@ -131,7 +131,7 @@ ggsave(filename=plot_name, plot=plot, path=path, width=1.5, height = 8)
 ```{r run_remaining_plots,fig.width=1.5, fig.height=5}
 
 # Set directory to the correct folder
-setwd('results/vi_rgbvi')
+setwd('results/mask_experiment')
 
 # Save list of image file names in a variable
 filenames <- dir(pattern = 'jpg')
@@ -146,41 +146,20 @@ img_into_dataframe_into_boxplot(file_name="image_6.jpg", path='../vi_rgbvi_boxpl
 # Now do it on the rest. heaven help my computer. 
 lapply(filenames, img_into_dataframe_into_boxplot)
 
+ 
 
+```
 
-# PUT THIS IN FUNCTION?
-# file_name = 'image_1.jpg'
-# 
-# img_df <- img_into_dataframe_into_boxplot(file_name)
-# 
-# # Build the plot
-# plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
-#   geom_boxplot(fill = 'olivedrab') +
-#   coord_flip() +
-#   labs(
-#     x = '',
-#     y = file_name
-#   ) +
-#   theme(
-#     panel.background = element_blank(),
-#     axis.ticks = element_blank(),
-#     axis.title.y = element_blank(),
-#     axis.text = element_blank(),
-#     panel.grid = element_blank(),
-#     panel.grid.major.y = element_line('gray75')
-#     )
-# 
-# plot_name <- paste0('boxplot_image_', 1, '.jpg')
-# path <- '../vi_rgbvi_boxplots'
-# 
-# ggsave(filename=plot_name, plot=plot, path=path, width=1.25, height = 8)
-# 
+```{r test_on_single_boxplot}
+filename = 'results/mask_experiment/image_1.jpg'
+outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
+
 
 ```
 
 
 ```{r apply_to_all_greenhouse_imgs}
-path <- 'results/greenhouse_photos_thresholded'
+path <- 'results/mask_experiment'
 
 # Save list of image file names in a variable
 filenames <- list.files(path, full.names = TRUE)
@@ -188,7 +167,7 @@ filenames <- list.files(path, full.names = TRUE)
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
 # Apply function to all the files in that list. Godspeed, little one. 
-lapply(filenames, img_into_dataframe_into_boxplot, path = outputdir)
+lapply(filenames, img_into_dataframe_into_boxplot, outputdir = outputdir)
 
 ```
 
