@@ -18,12 +18,11 @@ library(sp)
 library(lattice)
 library(latticeExtra)
 library(egg)
-library(ggbeeswarm)
 ```
 
 
-```{r define_function}
-img_into_dataframe_into_boxplot <- function(file_name, outputdir) {
+```{r define_functions}
+img_into_dataframe <- function(file_name) {
   
   # Read in the image
   img <- readJPEG(file_name)
@@ -32,7 +31,18 @@ img_into_dataframe_into_boxplot <- function(file_name, outputdir) {
   img_vector <- as.vector(img)
   
   # Convert that vector into a single column dataframe.
-  img_df <- data.frame(pixel_intensity = img_vector)
+  img_df <- data.frame(pixel_intensity = img_vector) %>% 
+      # Filter out all the zeroes (black pixels! There's tons of em!)
+      filter(pixel_intensity > 0)
+  
+  message(paste("Dataframe created for:", file_name))
+  
+  # Return a dataframe 
+  return(img_df)
+  
+}
+
+save_boxplot <- function(img_df, file_name, outputdir) {
   
   # Build the plot
   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
@@ -58,6 +68,33 @@ img_into_dataframe_into_boxplot <- function(file_name, outputdir) {
 
   
 }
+
+save_first_boxplot <- function(img_df, file_name, outputdir) {
+  
+  # Build the plot
+  plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+    geom_boxplot(fill = 'olivedrab') +
+    coord_flip() +
+    labs(
+      x = 'Pixel Intensity',
+      y = file_name
+    ) +
+    theme(
+      panel.background = element_blank(),
+      axis.ticks = element_blank(),
+      axis.text.x = element_blank(),
+      panel.grid = element_blank(),
+      panel.grid.major.y = element_line('gray75')
+      )
+  
+  
+  plot_name <- paste0('boxplot_', file_name)
+  
+  ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
+  
+  message(paste("Plot saved for:", file_name))
+}
+
 ```
 
 
@@ -128,7 +165,7 @@ ggsave(filename=plot_name, plot=plot, path=path, width=1.5, height = 8)
 
 ```
 
-```{r run_remaining_plots,fig.width=1.5, fig.height=5}
+```{r run_remaining_plots, fig.width=1.5, fig.height=5}
 
 # Set directory to the correct folder
 setwd('results/mask_experiment')
@@ -151,23 +188,32 @@ lapply(filenames, img_into_dataframe_into_boxplot)
 ```
 
 ```{r test_on_single_boxplot}
-filename = 'results/mask_experiment/image_1.jpg'
+file_name <- 'results/mask_experiment/image_1.jpg'
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
+img_df <- img_into_dataframe(file_name)
+
+save_first_boxplot(img_df, file_name, outputdir)
 
 ```
 
 
 ```{r apply_to_all_greenhouse_imgs}
-path <- 'results/mask_experiment'
+folder <- 'results/mask_experiment'
 
 # Save list of image file names in a variable
-filenames <- list.files(path, full.names = TRUE)
+full_filenames <- list.files(folder, full.names = TRUE)
 
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
 # Apply function to all the files in that list. Godspeed, little one. 
-lapply(filenames, img_into_dataframe_into_boxplot, outputdir = outputdir)
+lapply(full_filenames, img_into_dataframe_into_boxplot, outputdir = outputdir)
+
+```
+Try stitching all the dataframes together again because it would make everything so much easier to work with
+```{r}
+
+img_df <- do.call(rbind, img_dfs)
 
 ```
 
