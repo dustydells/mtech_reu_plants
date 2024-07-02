@@ -22,10 +22,13 @@ library(egg)
 
 
 ```{r define_functions}
-img_into_dataframe <- function(file_name, cutoff_threshold) {
+img_into_dataframe <- function(image_path, cutoff_threshold) {
+  # Extract the file name (regexp pattern matches any characters not a slash ([^/]+) followed by .jpg at the end of the string $
+  file_name <- str_extract(image_path, pattern = '([^/]+)\\.jpg$')
+  file_name <- sub('\\.jpg$', '', file_name) # replace .jpg with ''
   
   # Read in the image
-  img <- readJPEG(file_name)
+  img <- readJPEG(image_path)
   
   # Flatten the image into a vector (1D array)
   img_vector <- as.vector(img)
@@ -33,16 +36,18 @@ img_into_dataframe <- function(file_name, cutoff_threshold) {
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector) %>% 
       # Filter out all the gray background pixels. According to histograms, there's a big distribution around .25 and the rest are located after .50. .40 should be a good cutoff point for images manipulated by the ExG vegetative index. 
-      filter(pixel_intensity > cutoff_threshold)
+      filter(pixel_intensity > cutoff_threshold) %>% 
+      # Add a column that specifies which file it came from
+      mutate(file_name = image_path)
   
-  message(paste("Dataframe created for:", file_name))
+  message(paste("Dataframe created for:", image_path))
   
   # Return a dataframe 
   return(img_df)
   
 }
 
-save_boxplot <- function(img_df, file_name, outputdir) {
+save_boxplot <- function(img_df, image_path, outputdir) {
   
   # Build the plot
   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
@@ -50,7 +55,7 @@ save_boxplot <- function(img_df, file_name, outputdir) {
     coord_flip() +
     labs(
       x = 'Pixel Luminosity',
-      y = file_name
+      y = image_path
     ) +
     theme(
       panel.background = element_blank(),
@@ -60,16 +65,16 @@ save_boxplot <- function(img_df, file_name, outputdir) {
       panel.grid.major.y = element_line('gray75')
       )
   
-  plot_name <- paste0('boxplot_', file_name)
+  plot_name <- paste0('boxplot_', image_path)
   
   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
   
-  message(paste("Plot saved for:", file_name))
+  message(paste("Plot saved for:", image_path))
 
   
 }
 
-save_first_boxplot <- function(img_df, file_name, outputdir) {
+save_first_boxplot <- function(img_df, image_path, outputdir) {
   
   # Build the plot
   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
@@ -77,7 +82,7 @@ save_first_boxplot <- function(img_df, file_name, outputdir) {
     coord_flip() +
     labs(
       x = 'Pixel Intensity',
-      y = file_name
+      y = image_path
     ) +
     theme(
       panel.background = element_blank(),
@@ -88,11 +93,11 @@ save_first_boxplot <- function(img_df, file_name, outputdir) {
       )
   
   
-  plot_name <- paste0('boxplot_', file_name)
+  plot_name <- paste0('boxplot_', image_path)
   
   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
   
-  message(paste("Plot saved for:", file_name))
+  message(paste("Plot saved for:", image_path))
 }
 
 ```
@@ -186,18 +191,19 @@ lapply(filenames, img_into_dataframe_into_boxplot)
  
 
 ```
+TEST ON SINGLE BOXPLOT
 
 ```{r test_on_single_boxplot}
-file_name <- 'results/mask_experiment_vi_greenhouse/image_8.jpg'
+image_path <- 'results/mask_experiment_vi_greenhouse/image_8.jpg'
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
 # Use .40 threshold because that's the cutoff between background and leaf in images mapped to the ExG vegetative index
-img_df <- img_into_dataframe(file_name, cutoff_threshold = .40)
+img_df <- img_into_dataframe(image_path, cutoff_threshold = .40)
 
 # ggplot(img_df, aes(x=pixel_intensity)) +
 #   geom_histogram()
 
-save_first_boxplot(img_df, file_name, outputdir)
+save_first_boxplot(img_df, image_path, outputdir)
 
 ```
 
