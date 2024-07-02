@@ -32,8 +32,8 @@ img_into_dataframe <- function(file_name) {
   
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector) %>% 
-      # Filter out all the zeroes (black pixels! There's tons of em!)
-      filter(pixel_intensity > 0)
+      # Filter out all the gray background pixels. According to histograms, there's a big distribution around .25 and the rest are located after .50. .40 should be a good cutoff point for images manipulated by the ExG vegetative index. 
+      filter(pixel_intensity > 0.40)
   
   message(paste("Dataframe created for:", file_name))
   
@@ -188,10 +188,13 @@ lapply(filenames, img_into_dataframe_into_boxplot)
 ```
 
 ```{r test_on_single_boxplot}
-file_name <- 'results/mask_experiment/image_1.jpg'
+file_name <- 'results/mask_experiment_vi_greenhouse/image_8.jpg'
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
 img_df <- img_into_dataframe(file_name)
+
+# ggplot(img_df, aes(x=pixel_intensity)) +
+#   geom_histogram()
 
 save_first_boxplot(img_df, file_name, outputdir)
 
