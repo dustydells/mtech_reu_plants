@@ -47,60 +47,82 @@ img_into_dataframe <- function(image_path, cutoff_threshold) {
   
 }
 
-save_boxplot <- function(img_df, image_path, outputdir) {
-  
-  # Build the plot
-  plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
-    geom_boxplot(fill = 'olivedrab') +
-    coord_flip() +
-    labs(
-      x = 'Pixel Luminosity',
-      y = file_name
-    ) +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid = element_blank(),
-      panel.grid.major.y = element_line('gray75')
-      )
-  
-  plot_name <- paste0('boxplot_', image_path)
-  
-  ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
-  
-  message(paste("Plot saved for:", file_name))
-
-  
-}
-
-save_first_boxplot <- function(img_df, image_path, outputdir) {
-  
-  # Build the plot
-  plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
-    geom_boxplot(fill = 'olivedrab') +
-    coord_flip() +
-    labs(
-      x = 'Pixel Intensity',
-      y = file_name
-    ) +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      axis.text.x = element_blank(),
-      panel.grid = element_blank(),
-      panel.grid.major.y = element_line('gray75')
-      )
-  
-  
-  plot_name <- paste0('boxplot_', image_path)
-  
-  ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
-  
-  message(paste("Plot saved for:", file_name))
-}
+# save_boxplot <- function(img_df, image_path, outputdir) {
+#   
+#   # Build the plot
+#   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+#     geom_boxplot(fill = 'olivedrab') +
+#     coord_flip() +
+#     labs(
+#       x = 'Pixel Luminosity',
+#       y = file_name
+#     ) +
+#     theme(
+#       panel.background = element_blank(),
+#       axis.ticks = element_blank(),
+#       axis.text.x = element_blank(),
+#       panel.grid = element_blank(),
+#       panel.grid.major.y = element_line('gray75')
+#       )
+#   
+#   plot_name <- paste0('boxplot_', image_path)
+#   
+#   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
+#   
+#   message(paste("Plot saved for:", file_name))
+# 
+#   
+# }
+# 
+# save_first_boxplot <- function(img_df, image_path, outputdir) {
+#   
+#   # Build the plot
+#   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
+#     geom_boxplot(fill = 'olivedrab') +
+#     coord_flip() +
+#     labs(
+#       x = 'Pixel Intensity',
+#       y = file_name
+#     ) +
+#     theme(
+#       panel.background = element_blank(),
+#       axis.ticks = element_blank(),
+#       axis.text.x = element_blank(),
+#       panel.grid = element_blank(),
+#       panel.grid.major.y = element_line('gray75')
+#       )
+#   
+#   
+#   plot_name <- paste0('boxplot_', image_path)
+#   
+#   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
+#   
+#   message(paste("Plot saved for:", file_name))
+# }
 
 ```
+
+
+
+```{r visualize_giant_honking_df}
+
+ggplot(all_greenhouse_img_df, aes(x = file_name, y = pixel_intensity)) +
+  geom_boxplot(fill = 'olivedrab') +
+  labs(
+    title = 'Distribution of ExG Vegetative Index Values of Willow Leaves in Greenhouse Photos',
+    x = 'Image',
+    y = 'Vegetative Index Value'
+  ) +
+    theme(
+      panel.background = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
+      panel.grid.major.y = element_line('gray75')
+      )
+
+```
+
+TINKERING AND OLD CODE BELOW
 
 
 ```{r}
@@ -234,19 +256,6 @@ img_dfs <- lapply(image_paths, img_into_dataframe, cutoff_threshold=0.4)
 
 # Stitch all the dataframes into one
 all_greenhouse_img_df <- do.call(rbind, img_dfs)
-
-```
-
-```{r visualize_giant_honking_df}
-
-ggplot(all_greenhouse_img_df, aes(x = file_name, y = pixel_intensity)) +
-  geom_boxplot(fill = 'olivedrab')+
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid = element_blank(),
-      panel.grid.major.y = element_line('gray75')
-      )
 
 ```
 
