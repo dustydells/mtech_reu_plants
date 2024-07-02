@@ -22,7 +22,7 @@ library(egg)
 
 
 ```{r define_functions}
-img_into_dataframe <- function(file_name) {
+img_into_dataframe <- function(file_name, cutoff_threshold) {
   
   # Read in the image
   img <- readJPEG(file_name)
@@ -33,7 +33,7 @@ img_into_dataframe <- function(file_name) {
   # Convert that vector into a single column dataframe.
   img_df <- data.frame(pixel_intensity = img_vector) %>% 
       # Filter out all the gray background pixels. According to histograms, there's a big distribution around .25 and the rest are located after .50. .40 should be a good cutoff point for images manipulated by the ExG vegetative index. 
-      filter(pixel_intensity > 0.40)
+      filter(pixel_intensity > cutoff_threshold)
   
   message(paste("Dataframe created for:", file_name))
   
@@ -191,7 +191,8 @@ lapply(filenames, img_into_dataframe_into_boxplot)
 file_name <- 'results/mask_experiment_vi_greenhouse/image_8.jpg'
 outputdir <- 'results/greenhouse_photos_thresholded_boxplots'
 
-img_df <- img_into_dataframe(file_name)
+# Use .40 threshold because that's the cutoff between background and leaf in images mapped to the ExG vegetative index
+img_df <- img_into_dataframe(file_name, cutoff_threshold = .40)
 
 # ggplot(img_df, aes(x=pixel_intensity)) +
 #   geom_histogram()
