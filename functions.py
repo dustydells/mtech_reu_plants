@@ -132,3 +132,20 @@ def apply_otsu(img):
 
 # for file in files:
 #     print(file)
+
+def matrix_xy_swap(matrix):
+    '''
+    When you establish your points in napari, they come in in (y, x) order. 
+    In order to use these points with normal Python functionalities, x and y
+    need to be switched. I love, love, love being a programmer.
+
+    Parameters:
+        matrix:
+            A numpy array of coordinates as retreived from napari interface
+    Returns: 
+        swapped_matrix:
+            The same matrix, but with the x and y switched for each vector
+    '''
+    swapped_matrix = np.array([[y, x] for x, y in matrix], dtype=np.float32)
+
+    return swapped_matrix
