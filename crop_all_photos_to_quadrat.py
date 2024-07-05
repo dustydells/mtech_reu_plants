@@ -1,6 +1,6 @@
 '''
-This file contains a loop that will crop all photos. Note that it
-requires user input - the user places all the corners in the napari
+This file contains a loop that will crop all photos in the test_photos folder. Note that it
+requires user input - the user places all the quadrat corners in the napari
 GUI, and the code will crop it according to those corners. 
 '''
 
