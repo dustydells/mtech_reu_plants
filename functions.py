@@ -149,3 +149,20 @@ def matrix_xy_swap(matrix):
     swapped_matrix = np.array([[y, x] for x, y in matrix], dtype=np.float32)
 
     return swapped_matrix
+
+
+def extract_filename_number(filename):
+    '''
+    For when you just want the number in your filename.
+
+    Parameters:
+        filename: name of a file (preferably not the whole path)
+
+    Returns:
+        The number in the filename
+    '''
+    # Grab the number in the filename
+    number = re.search('\d+', filename).group() # .group() function returns the match of the regexp, rather than a big silly string of junk
+
+    return number
+    
