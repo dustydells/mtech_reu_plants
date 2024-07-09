@@ -5,14 +5,6 @@ import glob
 from skimage import img_as_float, img_as_ubyte
 import skimage.filters as skfil
 
-# Non-local means de-noising
-def nl_means_denoise():
-    pass
-    
-# Make array of HSV (maybe also include RGB) histograms
-def histogram_array():
-    pass
-
 
 # VEGETATIVE INDECES
 def apply_vegetative_index(img, index_type):
