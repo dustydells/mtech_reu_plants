@@ -142,26 +142,24 @@ def reorder_quadrat_corners(corners):
     clockwise order starting from the top left point. 
 
     Parameters:
-        corners: a list of points of the quadrat corners
+        corners: a numpy array of points of the quadrat corners
     Returns:
         corners_array: a numpy array containing the points in clockwise order
         starting from the top left point
     '''
-    # Convert the list of points to a numpy array
-    pts = np.array(corners)
 
     # Calculate the sum and difference of the points
-    s = pts.sum(axis=1)
-    diff = np.diff(pts, axis=1)
+    s = corners.sum(axis=1)
+    diff = np.diff(corners, axis=1)
 
     # The top-left point will have the smallest sum
-    top_left = pts[np.argmin(s)]
+    top_left = corners[np.argmin(s)]
     # The bottom-right point will have the largest sum
-    bottom_right = pts[np.argmax(s)]
+    bottom_right = corners[np.argmax(s)]
     # The top-right point will have the smallest difference
-    top_right = pts[np.argmin(diff)]
+    top_right = corners[np.argmin(diff)]
     # The bottom-left point will have the largest difference
-    bottom_left = pts[np.argmax(diff)]
+    bottom_left = corners[np.argmax(diff)]
 
     # Return the ordered points
     corners_array = np.array([top_left, top_right, bottom_right, bottom_left])
