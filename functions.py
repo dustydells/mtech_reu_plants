@@ -19,25 +19,22 @@ import skimage.filters as skfil
 '''
 
 # CROP TO QUADRAT
-def crop_to_square(path):
+def crop_to_square(img):
     '''
     This function takes an image containing a quadrat or square object and crops the image
     into the square using a perspective transform.
     It uses the napari GUI to present a window in which the user can place points
     on the four corners. 
-    Note that after this function runs, your photos will all be square but they
-    won't necessarily be the same size.
+    Note that if you use this function on multiple images, they
+    won't necessarily be the same size. 
 
     Parameters:
-        path:
-            A path to an image of the ground that contains a square shape or quadrat
+        img:
+            An image of the ground that contains a square shape or quadrat
     Returns:
         cropped_img:
             The same image, but only the pixels within the square
     '''
-
-    # Read in the file in RGB with pyplot
-    img = plt.imread(path)
 
     # Give array_length initial value to kick off while loop
     array_length = 0
@@ -105,7 +102,6 @@ def crop_to_square(path):
 
 
 
-# MISCELLANEOUS FUNCTIONS
 
 # VEGETATIVE INDECES
 def apply_vegetative_index(img, index_type):
@@ -165,6 +161,7 @@ def apply_vegetative_index(img, index_type):
 
     return vegetated_img
 
+# MISCELLANEOUS FUNCTIONS
 # Reorder the list of files for looping through
 def reorder_file_paths(path):
     '''
