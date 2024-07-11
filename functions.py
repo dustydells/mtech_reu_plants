@@ -161,6 +161,40 @@ def apply_vegetative_index(img, index_type):
 
     return vegetated_img
 
+# Calculate percent of ground covered by live (green plants) given a VI image
+def calc_live_plants_percentage(vi_img, green_threshold):
+    '''
+    This function takes an image that has been modified by a vegetative index, 
+    and calculates the percentage of the pixels in that image which meet a threshold. 
+    It can be used to estimage how much of an image contains plants that are live. 
+
+    Parameters:
+        vi_img: 
+            An image where every pixel value is a vegetative index value 
+        green_threshold: 
+            The cutoff vegetative index value that differentiates between a dead plant 
+            and a live plant. For example, with an RGBVI image, I prefer the threshold 130. 
+    Returns:
+        percent_green_pixels:
+            The percent of all pixels in the image which are considered green based on a 
+            given threshold
+    '''
+    
+    # Make a binary image where pixels above the green threshold are considered green
+    binary = vi_img >= green_threshold
+
+    # Get the total amount of pixels
+    total_pixels = vi_img.size
+
+    # Count how many pixels are considered green
+    green_pixels = np.count_nonzero(binary)
+
+    # Calculate percentage of green pixels
+    percent_green_pixels = green_pixels / total_pixels
+
+    return percent_green_pixels
+
+
 # MISCELLANEOUS FUNCTIONS
 # Reorder the list of files for looping through
 def reorder_file_paths(path):
