@@ -94,7 +94,7 @@ def crop_to_square(img):
     # Apply perspective transformation
     img_transformed = cv2.warpPerspective(img, matrix, (side_length, side_length))
 
-    print(f'{path} has been cropped.')
+    print(f'image has been cropped.')
 
     return img_transformed
 
