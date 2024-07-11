@@ -178,9 +178,12 @@ def calc_live_plants_percentage(vi_img, green_threshold):
         percent_green_pixels:
             The percent of all pixels in the image which are considered green based on a 
             given threshold
+        binary:
+            The image where all pixels considered green are white and the rest are black
+            (returned for debugging purposes)
     '''
     
-    # Make a binary image where pixels above the green threshold are considered green
+    # Make a binary image where pixels above the green threshold are considered green (white pixels)
     binary = vi_img >= green_threshold
 
     # Get the total amount of pixels
@@ -192,7 +195,9 @@ def calc_live_plants_percentage(vi_img, green_threshold):
     # Calculate percentage of green pixels
     percent_green_pixels = green_pixels / total_pixels
 
-    return percent_green_pixels
+    binary = img_as_ubyte(binary)
+
+    return percent_green_pixels, binary
 
 
 # MISCELLANEOUS FUNCTIONS
