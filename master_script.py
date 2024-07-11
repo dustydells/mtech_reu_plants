@@ -1,3 +1,4 @@
+import cv2
 from matplotlib import pyplot as plt
 from functions import crop_to_square
 
@@ -7,4 +8,7 @@ path = 'raw_photos\\20240531_103541.jpg'
 # CROP IMAGES
 cropped_img = crop_to_square(path)
 
-plt.imshow(cropped_img)
+cv2.imshow('cropped image', cropped_img)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
