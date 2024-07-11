@@ -27,7 +27,7 @@ green_threshold = 130
 # Calculate a percentage of pixels that are green according to an rgbvi threshold of 130
 percent_green_pixels, binary = calc_live_plants_percentage(vi_img, green_threshold)
 
-print(percent_green_pixels)
+print(f'Percentage of pixels considered green based on a {green_threshold} threshold of {index_type} image: {percent_green_pixels}')
 
 
 # Display images in a 2x2 grid
