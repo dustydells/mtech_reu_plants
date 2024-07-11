@@ -2,9 +2,106 @@ import numpy as np
 import cv2
 import re
 import glob
+import napari
+from matplotlib import pyplot as plt
 from skimage import img_as_float, img_as_ubyte
 import skimage.filters as skfil
 
+# MAIN PROCESS FUNCTIONS
+'''
+
+1. Crop every image to its quadrat using the napari gui
+2. Resize every image to the smallest length in the folder of photos
+3. denoise images
+4. Apply vegetative index
+5. Convert pixel information into a csv
+
+'''
+
+# CROP TO QUADRAT
+def crop_to_square(path):
+    '''
+    This function takes an image containing a quadrat or square object and crops the image
+    into the square using a perspective transform.
+    It uses the napari GUI to present a window in which the user can place points
+    on the four corners. 
+    Note that after this function runs, your photos will all be square but they
+    won't necessarily be the same size.
+
+    Parameters:
+        path:
+            A path to an image of the ground that contains a square shape or quadrat
+    Returns:
+        cropped_img:
+            The same image, but only the pixels within the square
+    '''
+
+    # Read in the file in RGB with pyplot
+    img = plt.imread(path)
+
+    # Give array_length initial value to kick off while loop
+    array_length = 0
+
+    # Keep looping until user inputs the correct amount of points
+    while array_length != 4:
+
+        # Open image in napari viewer
+        viewer = napari.view_image(img, rgb=True)
+                
+        # Add a points layer
+        points_layer = viewer.add_points()
+
+        '''
+        At this point, the napari GUI should open. Use the add point tool
+        (hotkey is 2) to place a point on every corner of the square.
+        Close the window when you're finished. 
+        '''
+
+        print('Use the add point tool (hotkey is 2) to place a point on every corner of the square. Close the window when you\'re finished. ')
+
+        # Retrieve points from the GUI
+        corners = points_layer.data
+
+        # Convert it into a np matrix
+        corners = np.array(corners, dtype = np.float32)
+
+        # Save the amount of points in the array into a variable
+        array_length = corners.shape[0]
+
+        if array_length != 4:
+            print('\nPlease enter 4 points - one for each corner of the square.')  
+
+    # Swap the x and y to convert from napari coordinates to python coordinates
+    corners_swapped = matrix_xy_swap(corners)
+
+    # Ensure that the points are in the correct order (clockwise starting at top left)
+    corners_reordered = reorder_quadrat_corners(corners_swapped)
+
+    # Get a side length based on the top pipe of the quadrat
+    distance = corners_reordered[0] - corners_reordered[1]
+    side_length = abs(int(np.linalg.norm(distance))) # absolute value of the Euclidean distance
+
+    # Define the new locations of each point based on side length
+    corner_destinations = np.array([
+        [0, 0], # top left
+        [side_length, 0], # top right
+        [side_length, side_length], # bottom right
+        [0, side_length] # bottom left
+    ], dtype=np.float32)
+
+    # Get perspective transformation matrix 
+    matrix = cv2.getPerspectiveTransform(corners_reordered, corner_destinations)
+
+    # Apply perspective transformation
+    img_transformed = cv2.warpPerspective(img, matrix, (side_length, side_length))
+
+    return img_transformed
+
+
+
+
+
+# MISCELLANEOUS FUNCTIONS
 
 # VEGETATIVE INDECES
 def apply_vegetative_index(img, index_type):
