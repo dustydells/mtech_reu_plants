@@ -1,4 +1,6 @@
+import array
 import cv2
+import sys
 import glob
 import napari
 import numpy as np
@@ -12,6 +14,8 @@ path = 'raw_photos\\*'
 # Enter path to output folder
 output_dir = 'results\\master_script_output'
 
+# Default setting for this variable
+image_saved = False
 
 # CROP IMAGES TO THE QUADRAT
 # Define the path where you want to create the folder
@@ -21,25 +25,41 @@ folder_path = Path(output_dir + '\\cropped_images')
 for i, file in enumerate(glob.glob(path)):
     # Read in the file in RGB with pyplot
     img = plt.imread(file)
-            
-    # Open it in napari viewer
-    viewer = napari.view_image(img, rgb=True)
-            
-    # Add a points layer
-    points_layer = viewer.add_points()
 
-    # Pause for loop and present user with options
-    kill_switch = input('\nUse the add points button in the GUI that just popped up (or select the tool by pressing 2) to place one point on every corner of the quadrat. Place them in clockwise order starting at top left. Press "enter" when you\'re ready to move on to the next photo, and type "quit" to quit. \n')
+    # Give array_length initial value to kick off while loop
+    array_length = 0
 
-    # Quit the loop if the user types "quit"
-    if kill_switch == 'quit':
+    while array_length != 4:
+                
+        # Open image in napari viewer
+        viewer = napari.view_image(img, rgb=True)
+                
+        # Add a points layer
+        points_layer = viewer.add_points()
+
+        # Pause for loop and present user with options
+        kill_switch = input('\nUse the add points button in the GUI that just popped up (or select the tool by pressing 2) to place one point on every corner of the quadrat. You should place 4 points. Press "enter" when you\'re ready to move on to the next photo, and type "quit" to quit. \n')
+
+        # Quit the loop if the user types "quit"
+        if kill_switch == 'quit':
+            quit = True
+            break
+        else:
+            # Retrieve points from the GUI
+            corners = points_layer.data
+
+            # Convert it into a np matrix
+            corners = np.array(corners, dtype = np.float32)
+
+            # Save the amount of points in the array into a variable
+            array_length = corners.shape[0]
+
+            if array_length != 4:
+                print('\nPlease enter 4 points - one for each corner of the quadrat.')  
+
+    if quit == True:
         break
     else:
-        # Retrieve points from the GUI
-        corners = points_layer.data
-
-        # Convert it into a np matrix
-        corners = np.array(corners, dtype = np.float32)
 
         # Swap the x and y to convert from napari coordinates to python coordinates
         corners_swapped = matrix_xy_swap(corners)
@@ -65,8 +85,6 @@ for i, file in enumerate(glob.glob(path)):
         # Apply perspective transformation
         img_transformed = cv2.warpPerspective(img, matrix, (side_length, side_length))
 
-
-
         # Create the folder if it doesn't already exisst
         try:
             folder_path.mkdir(parents=True, exist_ok=True)
@@ -77,5 +95,11 @@ for i, file in enumerate(glob.glob(path)):
         # Save the image to file
         plt.imsave(f'{output_dir}\\cropped_images\\image_{i}.jpg', img_transformed)
 
+        image_saved = True
+
         # Print out a message that your file was saved
         print(f'Image {i}, {file}, was cropped and saved in the folder "cropped_images" within your output directory.')
+
+# If no images have been saved, terminate the program
+if image_saved == False:
+    sys.exit(0)
