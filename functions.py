@@ -201,6 +201,45 @@ def calc_live_plants_percentage(vi_img, green_threshold):
 
 
 # MISCELLANEOUS FUNCTIONS
+
+# Resize all square photos to the same size as the smallest image.
+def resize_square_imgs(path, outputdir):
+    '''
+    This function is designed to make all photos cropped into a square
+    a consistent size. It resizes them all to the dimensions of the smallest
+    photo in the folder. 
+
+    Parameters:
+        path:
+            A path to a folder that contains square images
+    Returns:
+        outputdir:
+            Output directory. Enter the path to the folder into which
+            you want the resized images to be saved. 
+    ''' 
+    # Establish high minimum for min calculation later
+    min = 9999999
+
+    for file in glob.glob(path):
+        # Read in image
+        img = cv2.imread(file)
+
+        side_length = img.shape[0]
+
+        # Find minimum image size length
+        if side_length < min: 
+            min = side_length
+
+    for i, file in enumerate(glob.glob(path)):
+        # Read in image
+        img = cv2.imread(file)
+
+        # Resize all images to have previously established minimum length
+        resized = cv2.resize(img, (min, min))
+
+        cv2.imwrite(f'{outputdir}/image_{i}.jpg', resized) 
+
+
 # Reorder the list of files for looping through
 def reorder_file_paths(path):
     '''
