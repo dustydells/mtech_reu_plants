@@ -18,6 +18,7 @@ output_dir = 'results\\master_script_output'
 image_saved = False
 
 # CROP IMAGES TO THE QUADRAT
+print('CROP IMAGES TO THE QUADRAT')
 # Define the path where you want to create the folder
 folder_path = Path(output_dir + '\\cropped_images')
 
@@ -95,6 +96,7 @@ for i, file in enumerate(glob.glob(path)):
         # Save the image to file
         plt.imsave(f'{output_dir}\\cropped_images\\image_{i}.jpg', img_transformed)
 
+        # Flip the switch if image saving was successful
         image_saved = True
 
         # Print out a message that your file was saved
@@ -102,4 +104,6 @@ for i, file in enumerate(glob.glob(path)):
 
 # If no images have been saved, terminate the program
 if image_saved == False:
+    print('No new images were saved. Program terminated.')
     sys.exit(0)
+
