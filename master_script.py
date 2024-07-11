@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
 # Enter path to folder that contains quadrat images here
-path = 'raw_photos\\20240531_103541.jpg'
+path = 'raw_photos\\20240531_103740.jpg'
 
 # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
 img = plt.imread(path)
@@ -15,8 +15,51 @@ cropped_img = crop_to_square(img)
 # denoised_img = cv2.bilateralFilter(cropped_img, d=9, sigmaColor=75, sigmaSpace=75)
 
 # APPLY VEGETATIVE INDEX
-rgbvi_img = apply_vegetative_index(cropped_img, 'rgbvi')
+# Determine vegetative index that will be used
+index_type = 'rgbvi'
+
+vi_img = apply_vegetative_index(cropped_img, index_type)
 
 # WRITE VI DATA INTO A CSV
+# Determine threshold that will differentiate between live and dead plants
+green_threshold = 130
+
 # Calculate a percentage of pixels that are green according to an rgbvi threshold of 130
-percent_green_pixels = calc_live_plants_percentage(vi_img=rgbvi_img, green_threshold=130)
+percent_green_pixels, binary = calc_live_plants_percentage(vi_img, green_threshold)
+
+print(percent_green_pixels)
+
+
+# Display images in a 2x2 grid
+fig, axs = plt.subplots(2, 2, figsize=(12, 12))
+
+# Original Image
+axs[0, 0].imshow(img, cmap='gray')
+axs[0, 0].set_title('Original Image')
+axs[0, 0].axis('off')
+
+# Cropped image
+axs[0, 1].imshow(cropped_img, cmap='gray')
+axs[0, 1].set_title('Cropped image')
+axs[0, 1].axis('off')
+
+# Image modified by vegetative index
+axs[1, 0].imshow(vi_img, cmap='viridis')
+axs[1, 0].set_title(f'Image modified by {index_type}')
+axs[1, 0].axis('off')
+
+# Binary image of pixels considered green
+axs[1, 1].imshow(binary, cmap='gray')
+axs[1, 1].set_title(f'Binary image of pixels considered green by {green_threshold} threshold')
+axs[1, 1].axis('off')
+
+plt.tight_layout()
+plt.show()
+
+# cv2.imshow('og image', img)
+# cv2.imshow('cropped image', cropped_img)
+# cv2.imshow('vegetative index image', vi_img)
+# cv2.imshow('binary image', binary)
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
