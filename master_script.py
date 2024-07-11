@@ -1,4 +1,3 @@
-import cv2
 from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
@@ -20,7 +19,7 @@ index_type = 'rgbvi'
 
 vi_img = apply_vegetative_index(cropped_img, index_type)
 
-# WRITE VI DATA INTO A CSV
+# CALCULATE PERCENTAGE OF GREEN PIXELS
 # Determine threshold that will differentiate between live and dead plants
 green_threshold = 130
 
@@ -55,11 +54,3 @@ axs[1, 1].axis('off')
 
 plt.tight_layout()
 plt.show()
-
-# cv2.imshow('og image', img)
-# cv2.imshow('cropped image', cropped_img)
-# cv2.imshow('vegetative index image', vi_img)
-# cv2.imshow('binary image', binary)
-
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
