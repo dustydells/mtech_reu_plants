@@ -45,6 +45,8 @@ def crop_to_square(path):
     # Keep looping until user inputs the correct amount of points
     while array_length != 4:
 
+        print('Loading napari...')
+
         # Open image in napari viewer
         viewer = napari.view_image(img, rgb=True)
                 
@@ -57,7 +59,7 @@ def crop_to_square(path):
         Close the window when you're finished. 
         '''
 
-        print('Use the add point tool (hotkey is 2) to place a point on every corner of the square. Close the window when you\'re finished. ')
+        input('Use the add point tool (hotkey is 2) to place a point on every corner of the square. Close the window and press enter here when you\'re finished. ')
 
         # Retrieve points from the GUI
         corners = points_layer.data
