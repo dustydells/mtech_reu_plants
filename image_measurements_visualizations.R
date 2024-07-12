@@ -35,12 +35,17 @@ percent_summary <- dat %>%
 # Visualize that summary
 ggplot() +
   geom_col(percent_summary, mapping = aes(x = metric, y = percent_greater, fill = value)) +
-  coord_flip() +
-  scale_fill_manual('olivedrab', 'ivory') +
+  # coord_flip() +
+  scale_fill_manual(values = c(`>5.08cm` = 'orchid4', `<=5.08cm` = 'moccasin')) +
   labs(
-    title = 'Percent of segmented objects classified as greater or less than 5.08cm',
+    title = 'Percent of segmented objects classified as greater or less than 5.08cm in one image',
     fill = 'Object Classification',
     x = 'Metric by which object was classified',
     y = 'Percent of objects classified'
   ) +
   theme_classic()
+
+
+# See if intensity is what i think it is - should be over 165 because of inital thresholding, right??
+ggplot() +
+  geom_boxplot(dat, mapping = aes(x = as.factor(1), y = MinIntensity))
