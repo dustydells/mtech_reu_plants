@@ -15,5 +15,6 @@ the file "functions.py".
 
 ## Tips
 - If you are using this process to get the vegetative index of many images at once, make sure you resize all the images to a consistent size. The function "resize_square_imgs" was designed to do this.
+- Once the images are resized, if you are measuring rock size, it is necessary to calculate the conversion rate of pixels to centimeters every time you have a new batch of photos with a different size than the last. So when you use this process on a batch of photos, you will need to calculate your conversion rate immediately after you resize all images. The function "calc_pixels_to_cm" was designed to do this. 
 
 ## Acknowledgements
