@@ -359,3 +359,21 @@ def extract_filename_number(filename):
 
     return number
 
+def calc_pixels_to_cm(img):
+    '''
+    Assuming that your image is cropped to cover a square meter of ground, 
+    This function provides a conversion rate from pixels to centimeters. 
+    The number it returns can be multiplied with a pixel value to give you
+    its value in centimeters. 
+
+    Parameters:
+        img:
+            An image that is cropped to a square meter. 
+    Returns:
+        pixels_to_cm:
+            The pixels to centimeters conversion rate. 
+    '''
+
+    pixels_to_cm = 100 / img.shape[0]
+
+    return pixels_to_cm
