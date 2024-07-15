@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
-# Enter path to folder that contains quadrat images here
+# Enter path to quadrat image here
 path = 'raw_photos\\20240531_103740.jpg'
 
 # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)

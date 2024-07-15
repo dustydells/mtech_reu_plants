@@ -199,6 +199,8 @@ def calc_live_plants_percentage(vi_img, green_threshold):
 
     return percent_green_pixels, binary
 
+# OUTPUT SEGMENTATION INFO INTO CSV
+
 
 # MISCELLANEOUS FUNCTIONS
 
