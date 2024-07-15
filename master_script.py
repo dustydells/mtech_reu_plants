@@ -53,6 +53,8 @@ axs[1, 1].set_title(f'Binary image of pixels considered green by {green_threshol
 axs[1, 1].axis('off')
 
 plt.tight_layout()
-plt.imshow()
-plt.imsave('results/master_script_output/20240531_103740_grid.jpg', fig)
+
+# Save the grid to file
+plt.savefig('results/master_script_output/20240531_103740_grid.jpg') # Specify output path and filename
+
 
