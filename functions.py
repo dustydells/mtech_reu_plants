@@ -128,7 +128,7 @@ def apply_vegetative_index(img, index_type):
 
     # Excess Red (ExR)
     elif index_type == 'exr':
-        index = (1.4 * r - g) / g + r + b + 1e-6
+        index = (1.4 * r - g) / (g + r + b + 1e-6)
 
     # Green-Red Vegetation Index (GRVI)
     elif index_type == 'grvi':
@@ -145,7 +145,7 @@ def apply_vegetative_index(img, index_type):
     # ExG - ExR
     elif index_type == 'exg-exr':
         exg = 2 * g - r - b
-        exr = (1.4 * r - g) / g + r + b + 1e-6
+        exr = (1.4 * r - g) / (g + r + b + 1e-6)
         index = exg - exr
 
 
