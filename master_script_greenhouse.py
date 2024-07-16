@@ -93,7 +93,7 @@ def run_script(path, output_path, index_type, green_threshold):
     # Render the plotnine plot to an image
     fig = plot.draw()
     fig.savefig('plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plot_image = plt.imread('plotnine_plot.png')
+    plot_image = plt.imread('results/plotnine_plot.png')
     
     # Display images in a 2x2 grid
     fig, axs = plt.subplots(2, 2, figsize=(12, 12))
@@ -103,7 +103,7 @@ def run_script(path, output_path, index_type, green_threshold):
     axs[0, 0].set_title('Original Image')
     axs[0, 0].axis('off')
 
-    # Image modified by vegetative index
+    # Image modified by vegetative index NO WORKIE
     axs[1, 0].imshow(vi_img, cmap='viridis')
     axs[1, 0].set_title(f'Image modified by {index_type}')
     axs[1, 0].axis('off')
