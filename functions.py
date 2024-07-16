@@ -137,7 +137,7 @@ def apply_vegetative_index(img, index_type):
     # Visible Atmospherically Resistant Index (VARI)
     elif index_type == 'vari':
         index = (g - r) / (g + r - b + 1e-6)
-
+        
     # Red-Green-Blue Vegetation Index (RGBVI)
     elif index_type == 'rgbvi':
         index = (g**2 - r * b) / (g**2 + r * b + 1e-6)
@@ -152,9 +152,11 @@ def apply_vegetative_index(img, index_type):
     else:
         print('The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, vari, rgbvi, exg-exr')
 
-
-    # Normalize index to range [0, 255] for visualization
-    normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
+    if index_type != 'vari':
+        # Normalize index to range [0, 255] for visualization
+        normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
+    else:
+        normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
 
     # Convert normalized index to an 8-bit image
     vegetated_img = normalized.astype(np.uint8)
@@ -379,3 +381,4 @@ def calc_pixels_to_cm(img):
     pixels_to_cm = 100 / img.shape[0]
 
     return pixels_to_cm
+
