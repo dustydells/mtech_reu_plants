@@ -23,6 +23,13 @@ index_type = 'rgbvi'
 vi_img = apply_vegetative_index(cropped_img, index_type)
 
 # CALCULATE PERCENTAGE OF GREEN PIXELS
+'''
+You can find out what threshold to use by uncommenting this code and checking out the histogram
+made from the values in your image. Try different values and see what works.
+'''
+# plt.hist(vi_img.flatten(), bins = 100)
+# plt.show()
+
 # Determine threshold that will differentiate between live and dead plants
 green_threshold = 130
 
