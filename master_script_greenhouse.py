@@ -55,6 +55,9 @@ def run_script(path, output_path, index_type, green_threshold):
     # APPLY VEGETATIVE INDEX
     vi_img = apply_vegetative_index(img, index_type)
 
+    # Convert image to RGB for display later
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
     # THRESHOLD IMAGE
     thresh_img = vi_img >= green_threshold
 
@@ -76,9 +79,46 @@ def run_script(path, output_path, index_type, green_threshold):
 
     plot = (pn.ggplot(df) + 
             pn.aes(x='intensity') + 
-            pn.geom_histogram(bins = 100))
+            pn.geom_histogram(bins = 100) +
+            pn.labs(
+                 x='Intensity',
+                 y='Count',
+                 title=f'Distribution of pixel intensity of {index_type} image'
+            ) +
+            pn.theme_classic()
+    )
 
-    plot.show()
+    # plot.show()
+
+    # Render the plotnine plot to an image
+    fig = plot.draw()
+    fig.savefig('plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plot_image = plt.imread('plotnine_plot.png')
+    
+    # Display images in a 2x2 grid
+    fig, axs = plt.subplots(2, 2, figsize=(12, 12))
+
+    # Original Image
+    axs[0, 0].imshow(img, cmap='gray')
+    axs[0, 0].set_title('Original Image')
+    axs[0, 0].axis('off')
+
+    # Image modified by vegetative index
+    axs[1, 0].imshow(vi_img, cmap='viridis')
+    axs[1, 0].set_title(f'Image modified by {index_type}')
+    axs[1, 0].axis('off')
+
+    # Masked image
+    axs[1, 0].imshow(img_masked, cmap='viridis')
+    axs[1, 0].set_title(f'Image masked by {green_threshold} threshold')
+    axs[1, 0].axis('off')
+
+    # Plot
+    axs[1, 1].imshow(plot_image)
+    axs[1, 1].axis('off')
+
+    plt.tight_layout()
+    plt.show()
 
     # cv2.imshow('mask', img_masked)
 
