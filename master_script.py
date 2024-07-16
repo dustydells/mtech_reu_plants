@@ -1,13 +1,9 @@
 '''
-Run this script to get the vegetative index information from images. There are a few 
-options - if you don't want your image to be cropped to a square, then comment out the
-"CROP TO SQUARE" line. If you want to denoise the image, uncomment the "DENOISE IMAGE"
-code. In order to find out what threshold to use, you can uncomment the "INVESTIGATE HISTOGRAM"
-code.
+Run this script to get the vegetative index information from images. 
+Specify your parameters in the main function.
 '''
 
 import cv2
-from operator import index
 from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
