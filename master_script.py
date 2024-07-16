@@ -37,7 +37,7 @@ def main():
     green_threshold = 130
 
     # Run the process
-    run_script(path, output_path, index_type, green_threshold, crop=False)
+    run_script(path, output_path, index_type, green_threshold)
 
 
 
