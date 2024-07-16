@@ -1,5 +1,6 @@
 '''
-This script creates a g r  i d yippee
+This script creates a grid displaying information about the vegetation index
+and the process used to get that information. 
 It works best on images of plant leaves and stems on a plain background.
 Specify your parameters in the main function.
 '''
@@ -64,9 +65,6 @@ def run_script(path, output_path, index_type, green_threshold):
     # Convert back to ubyte
     mask = img_as_ubyte(thresh_img)
 
-    # Invert the mask because the bitwise_and operation replaces white pixels
-    # mask = cv2.bitwise_not(img_ubyte)
-
     # Apply the binary mask to the VI image
     # Only keep the pixels where the binary mask is white (255)
     img_masked = cv2.bitwise_and(vi_img, vi_img, mask = mask)
@@ -77,6 +75,7 @@ def run_script(path, output_path, index_type, green_threshold):
     # Filter out all the zero values
     df = df[df['intensity'] != 0]
 
+    # Create the plot
     plot = (pn.ggplot(df) + 
             pn.aes(x='intensity') + 
             pn.geom_histogram(bins = 100) +
@@ -87,8 +86,6 @@ def run_script(path, output_path, index_type, green_threshold):
             ) +
             pn.theme_classic()
     )
-
-    # plot.show()
 
     # Render the plotnine plot to an image
     fig = plot.draw()
