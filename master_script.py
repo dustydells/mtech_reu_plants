@@ -1,3 +1,11 @@
+'''
+Run this script to get the vegetative index information from images. There are a few 
+options - if you don't want your image to be cropped to a square, then comment out the
+"CROP TO SQUARE" line. If you want to denoise the image, uncomment the "DENOISE IMAGE"
+code. In order to find out what threshold to use, you can uncomment the "INVESTIGATE HISTOGRAM"
+code.
+'''
+
 from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
@@ -10,19 +18,21 @@ output_path = 'results/master_script_output/20240531_103740_grid.jpg'
 # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
 img = plt.imread(path)
 
-# CROP TO QUADRAT SQUARE
-cropped_img = crop_to_square(img)
+# CROP TO SQUARE if you want to
+img = crop_to_square(img)
 
-# DENOISE IMAGE
+# DENOISE IMAGE if you want to
 # denoised_img = cv2.bilateralFilter(cropped_img, d=9, sigmaColor=75, sigmaSpace=75)
 
 # APPLY VEGETATIVE INDEX
 # Determine vegetative index that will be used
 index_type = 'rgbvi'
 
-vi_img = apply_vegetative_index(cropped_img, index_type)
+vi_img = apply_vegetative_index(img, index_type)
 
 # CALCULATE PERCENTAGE OF GREEN PIXELS
+
+# INVESTIGATE HISTOGRAM
 '''
 You can find out what threshold to use by uncommenting this code and checking out the histogram
 made from the values in your image. Try different values and see what works.
