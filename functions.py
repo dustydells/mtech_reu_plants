@@ -168,7 +168,7 @@ def calc_live_plants_percentage(vi_img, green_threshold):
     '''
     This function takes an image that has been modified by a vegetative index, 
     and calculates the percentage of the pixels in that image which meet a threshold. 
-    It can be used to estimage how much of an image contains plants that are live. 
+    It can be used to estimate how much of an image contains plants that are live. 
 
     Parameters:
         vi_img: 
