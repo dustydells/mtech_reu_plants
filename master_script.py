@@ -26,7 +26,7 @@ img = crop_to_square(img)
 
 # APPLY VEGETATIVE INDEX
 # Determine vegetative index that will be used
-index_type = 'rgbvi'
+index_type = 'rgbvi' # RGBVI worked well for my quadrat photos on sunny days - feel free to experiment
 
 vi_img = apply_vegetative_index(img, index_type)
 
