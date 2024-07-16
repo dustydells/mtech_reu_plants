@@ -118,12 +118,8 @@ def run_script(path, output_path, index_type, green_threshold):
     axs[1, 1].axis('off')
 
     plt.tight_layout()
-    plt.show()
 
-    # cv2.imshow('mask', img_masked)
-
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
+    # Save the grid to file
+    plt.savefig(output_path)
 
 main()
