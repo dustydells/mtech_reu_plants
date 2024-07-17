@@ -58,6 +58,7 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
 
     # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
     img = plt.imread(path)
+    og_img = img # Save the original image so it can be included in the grid later
 
     # CROP TO SQUARE
     if crop == True:
@@ -80,7 +81,7 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     fig, axs = plt.subplots(2, 2, figsize=(12, 12))
 
     # Original Image
-    axs[0, 0].imshow(img, cmap='gray')
+    axs[0, 0].imshow(og_img, cmap='gray')
     axs[0, 0].set_title('Original Image')
     axs[0, 0].axis('off')
 
