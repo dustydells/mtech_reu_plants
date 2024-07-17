@@ -14,7 +14,7 @@ import plotnine as pn
 
 def main():
     '''
-    Determine your paramteters here. 
+    Determine your parameters here. 
     '''
     
     # Enter path to image of plants on a blank background here
