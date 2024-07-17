@@ -114,7 +114,7 @@ def apply_vegetative_index(img, index_type):
     Parameters:
         img: The image for which you want the vegetative index of each pixel, 
             in BGR (This function assumes that you have used cv2.imread() in order to load in this photo)
-        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi, vari, rgbvi, exg-exr
+        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi, rgbvi, exg-exr
     Returns:
         vegetated_img: A grayscale image that maps value to vegetative index of each pixel
         
@@ -137,8 +137,18 @@ def apply_vegetative_index(img, index_type):
         index = (g - r) / (g + r + 1e-6)
 
     # Visible Atmospherically Resistant Index (VARI)
-    elif index_type == 'vari':
-        index = (g - r) / (g + r - b + 1e-6)
+    # It would be nice to include the VARI in this function but I spent multiple hours
+    # trying to figure out what's wrong with it and got nowhere. Gonna move on with my life.
+    # elif index_type == 'vari':
+    #     index = (g - r) / (g + r - b - 1e-6)
+        # index = spyndex.computeIndex(
+        #     index = ['VARI'],
+        #     params = {
+        #         'R':r,
+        #         'G':g,
+        #         'B':b
+        #     }
+        # )
         
     # Red-Green-Blue Vegetation Index (RGBVI)
     elif index_type == 'rgbvi':
@@ -152,7 +162,7 @@ def apply_vegetative_index(img, index_type):
 
 
     else:
-        message = 'The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, vari, rgbvi, exg-exr'
+        message = 'The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, rgbvi, exg-exr'
         print(message)
         
     # Normalize index to range [0, 255] for visualization
@@ -381,4 +391,3 @@ def calc_pixels_to_cm(img):
     pixels_to_cm = 100 / img.shape[0]
 
     return pixels_to_cm
-
