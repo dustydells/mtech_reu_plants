@@ -40,7 +40,7 @@ def main():
 
 
 
-def run_script(path, output_path, index_type, green_threshold, denoise=False, crop=True):
+def run_script(path, output_path, index_type, green_threshold, denoise=False, crop=False):
     '''
     Run the entire process with the parameters you specified.
 
@@ -91,12 +91,14 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     img_masked = cv2.bitwise_and(vi_img, vi_img, mask = binary)
 
     # Convert image into dataframe
+    print('Converting image to dataframe...')
     df = pd.DataFrame(img_masked.flat, columns=['intensity'])
 
     # Filter out all the zero values
     df = df[df['intensity'] != 0]
 
     # Create the plot
+    print('Constructing plot...')
     plot = (pn.ggplot(df) + 
             pn.aes(x='intensity') + 
             pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
@@ -114,7 +116,7 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     plot_image = plt.imread('results/plotnine_plot.png')
     
     # Display images in a 2x3 grid
-    fig, axs = plt.subplots(2, 3, figsize=(12, 18))
+    fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(12, 18))
 
     # Original Image
     axs[0, 0].imshow(og_img, cmap='gray')
@@ -138,13 +140,13 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     axs[1, 1].axis('off')
 
     # Masked image
-    axs[1, 3].imshow(img_masked)
-    axs[1, 3].set_title(f'Masked image with only green pixels visible')
-    axs[1, 3].axis('off')
+    axs[2, 0].imshow(img_masked)
+    axs[2, 0].set_title(f'Masked image with only green pixels visible')
+    axs[2, 0].axis('off')
 
     # Histogram
-    axs[2, 3].imshow(plot_image)
-    axs[2, 3].axis('off')
+    axs[2, 1].imshow(plot_image)
+    axs[2, 1].axis('off')
 
     # Turn the percent into an actual percent
     percent = percent_green_pixels * 100
