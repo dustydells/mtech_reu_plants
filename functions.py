@@ -173,15 +173,17 @@ def apply_vegetative_index(img, index_type):
     return vegetated_img
 
 # Calculate percent of ground covered by live (green plants) given a VI image
-def calc_live_plants_percentage(vi_img, green_threshold):
+def calc_live_plants_percentage(binary):
     '''
-    This function takes an image that has been modified by a vegetative index, 
-    and calculates the percentage of the pixels in that image which meet a threshold. 
+    This function takes an image that has been modified by a vegetative index and
+    converted into a binary image with a threshold operation, and calculates the 
+    percentage of the pixels in that image which meet a threshold. 
     It can be used to estimate how much of an image contains plants that are live. 
 
     Parameters:
         vi_img: 
-            An image where every pixel value is a vegetative index value 
+            An image where every pixel value is a vegetative index value that has been
+            converted into a binary image with a threshold operation
         green_threshold: 
             The cutoff vegetative index value that differentiates between a dead plant 
             and a live plant. For example, with an RGBVI image, I prefer the threshold 130. 
@@ -195,10 +197,10 @@ def calc_live_plants_percentage(vi_img, green_threshold):
     '''
     
     # Make a binary image where pixels above the green threshold are considered green (white pixels)
-    binary = vi_img >= green_threshold
+    # binary = vi_img >= green_threshold
 
     # Get the total amount of pixels
-    total_pixels = vi_img.size
+    total_pixels = binary.size
 
     # Count how many pixels are considered green
     green_pixels = np.count_nonzero(binary)
@@ -206,9 +208,7 @@ def calc_live_plants_percentage(vi_img, green_threshold):
     # Calculate percentage of green pixels
     percent_green_pixels = green_pixels / total_pixels
 
-    binary = img_as_ubyte(binary)
-
-    return percent_green_pixels, binary
+    return percent_green_pixels
 
 # OUTPUT SEGMENTATION INFO INTO CSV
 
