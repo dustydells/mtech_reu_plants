@@ -9,7 +9,8 @@ These photos can be found in the folders "raw_photos" and "test_photos_greenhous
 
 ## Usage
 The file called "master_script.py" will take the path to one image and run the entire process on that image. The process applies your vegetation index of choice to the image and calculates the percentage of green pixels, and outputs a histogram displaying the distribution of vegetation index values. The script outputs several images, but all of those images are stored in variables and it would be easy to individually save them to your files if necessary. 
-![Example of output](results/master_script_output/example.jpg)
+![Example of output (quadrat)](results/master_script_output/example.jpg)
+![Example of output (willow leaves)](results/master_script_output/example_greenhouse.jpg)
 All functions used by the master script are contained in the file "functions.py". 
 
 ## Tips
