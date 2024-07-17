@@ -4,6 +4,9 @@ Specify your parameters in the main function.
 '''
 
 import cv2
+import pandas as pd
+import plotnine as pn
+from skimage import img_as_ubyte
 from matplotlib import pyplot as plt
 from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
 
@@ -80,8 +83,38 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
 
     print(f'Percentage of pixels considered green based on a {green_threshold} threshold of {index_type} image: {percent_green_pixels}')
 
-    # Display images in a 2x2 grid
-    fig, axs = plt.subplots(2, 2, figsize=(12, 12))
+    # Convert binary into ubyte so it can be used as a mask and displayed
+    binary = img_as_ubyte(binary)
+
+    # Apply the binary mask to the VI image
+    # Only keep the pixels where the binary mask is white (255)
+    img_masked = cv2.bitwise_and(vi_img, vi_img, mask = binary)
+
+    # Convert image into dataframe
+    df = pd.DataFrame(img_masked.flat, columns=['intensity'])
+
+    # Filter out all the zero values
+    df = df[df['intensity'] != 0]
+
+    # Create the plot
+    plot = (pn.ggplot(df) + 
+            pn.aes(x='intensity') + 
+            pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
+            pn.labs(
+                 x = 'Intensity',
+                 y = 'Count',
+                 title = f'Distribution of pixel intensity of {index_type} image'
+            ) +
+            pn.theme_classic()
+    )
+
+    # Render the plotnine plot to an image
+    fig = plot.draw()
+    fig.savefig('results/plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plot_image = plt.imread('results/plotnine_plot.png')
+    
+    # Display images in a 2x3 grid
+    fig, axs = plt.subplots(2, 3, figsize=(12, 18))
 
     # Original Image
     axs[0, 0].imshow(og_img, cmap='gray')
@@ -103,6 +136,22 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     axs[1, 1].imshow(binary, cmap='gray')
     axs[1, 1].set_title(f'Binary image of pixels considered green by {green_threshold} threshold')
     axs[1, 1].axis('off')
+
+    # Masked image
+    axs[1, 3].imshow(img_masked)
+    axs[1, 3].set_title(f'Masked image with only green pixels visible')
+    axs[1, 3].axis('off')
+
+    # Histogram
+    axs[2, 3].imshow(plot_image)
+    axs[2, 3].axis('off')
+
+    # Turn the percent into an actual percent
+    percent = percent_green_pixels * 100
+
+    # Add text to the figure (outside the subplots)
+    fig.text(0.5, 0.04, f'Percent of green pixels (green pixels / total pixels): {percent:.2f}%', ha='left', fontsize=12)
+
 
     plt.tight_layout()
 
