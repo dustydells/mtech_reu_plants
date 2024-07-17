@@ -160,7 +160,6 @@ def apply_vegetative_index(img, index_type):
         exr = (1.4 * r - g) / (g + r + b + 1e-6)
         index = exg - exr
 
-
     else:
         message = 'The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, rgbvi, exg-exr'
         print(message)
