@@ -90,14 +90,12 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     img_masked_calc = cv2.bitwise_and(vi_img, vi_img, mask = binary)
 
     # Convert image into dataframe
-    print('Converting image to dataframe...')
     df = pd.DataFrame(img_masked_calc.flat, columns=['intensity'])
 
     # Filter out all the zero values
     df = df[df['intensity'] != 0]
 
     # Create the plot
-    print('Constructing plot...')
     plot = (pn.ggplot(df) + 
             pn.aes(x='intensity') + 
             pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
@@ -115,7 +113,6 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     plot_image = plt.imread('results/plotnine_plot.png')
     
     # Display images in a 2x3 grid
-    print('Arranging images in grid...')
     fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(12, 18))
 
     # Original Image
