@@ -8,7 +8,7 @@ Specify your parameters in the main function.
 import cv2
 import pandas as pd
 from matplotlib import pyplot as plt
-from functions import apply_vegetative_index
+from functions import apply_vegetative_index, calc_live_plants_percentage
 from skimage import img_as_ubyte
 import plotnine as pn
 
@@ -65,6 +65,9 @@ def run_script(path, output_path, index_type, green_threshold):
     # Convert back to ubyte
     mask = img_as_ubyte(thresh_img)
 
+    # Calculate how many pixels are green
+    percent_green_pixels, _ = calc_live_plants_percentage(vi_img, green_threshold)
+
     # Apply the binary mask to the VI image
     # Only keep the pixels where the binary mask is white (255)
     img_masked = cv2.bitwise_and(vi_img, vi_img, mask = mask)
@@ -78,11 +81,11 @@ def run_script(path, output_path, index_type, green_threshold):
     # Create the plot
     plot = (pn.ggplot(df) + 
             pn.aes(x='intensity') + 
-            pn.geom_histogram(bins = 100) +
+            pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
             pn.labs(
-                 x='Intensity',
-                 y='Count',
-                 title=f'Distribution of pixel intensity of {index_type} image'
+                 x = 'Intensity',
+                 y = 'Count',
+                 title = f'Distribution of pixel intensity of {index_type} image'
             ) +
             pn.theme_classic()
     )
@@ -113,6 +116,12 @@ def run_script(path, output_path, index_type, green_threshold):
     # Plot
     axs[1, 1].imshow(plot_image)
     axs[1, 1].axis('off')
+
+    # Turn the percent into an actual percent
+    percent = percent_green_pixels * 100
+
+    # Add text to the figure (outside the subplots)
+    fig.text(0.5, 0.04, f'Percent of green pixels (green pixels / total pixels): {percent:.2f}%', ha='left', fontsize=12)
 
     plt.tight_layout()
 
