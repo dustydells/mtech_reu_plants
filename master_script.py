@@ -16,13 +16,13 @@ def main():
     '''
 
     # Enter path to input image here.
-    path = 'raw_photos\\20240613_124346.jpg'
+    path = 'test_photos_greenhouse\\image_1.jpg'
 
     # Enter output path and filename here.
-    output_path = 'results/master_script_output/example.jpg'
+    output_path = 'results/master_script_output/example_greenhouse.jpg'
 
     # Determine vegetative index that will be used
-    index_type = 'rgbvi' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
+    index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
 
     # INVESTIGATE HISTOGRAM
     '''
@@ -33,14 +33,14 @@ def main():
     # plt.show()
 
     # Determine threshold that will differentiate between live and dead plants
-    green_threshold = 130 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
+    green_threshold = 160 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
 
     # Run the process
     run_script(path, output_path, index_type, green_threshold)
 
 
 
-def run_script(path, output_path, index_type, green_threshold, denoise=False, crop=True):
+def run_script(path, output_path, index_type, green_threshold, denoise=False, crop=False):
     '''
     Run the entire process with the parameters you specified.
 
