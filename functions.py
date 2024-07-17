@@ -182,17 +182,13 @@ def calc_live_plants_percentage(binary):
 
     Parameters:
         binary: 
-            An image where every pixel value is a vegetative index value that has been
-            converted into a binary image with a threshold operation
+            A binary image that has been modified by a threshold operation with 
+            a vegetation index
     Returns:
         percent_green_pixels:
             The percent of all pixels in the image which are considered green based on a 
-            given threshold
-        
+            given threshold as saved in the binary image 
     '''
-    
-    # Make a binary image where pixels above the green threshold are considered green (white pixels)
-    # binary = vi_img >= green_threshold
 
     # Get the total amount of pixels
     total_pixels = binary.size

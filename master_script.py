@@ -72,8 +72,11 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     # APPLY VEGETATIVE INDEX
     vi_img = apply_vegetative_index(img, index_type)
 
+    # THRESHOLD IMAGE
+    binary = vi_img >= green_threshold
+
     # Calculate a percentage of pixels that are green according to your threshold cutoff
-    percent_green_pixels, binary = calc_live_plants_percentage(vi_img, green_threshold)
+    percent_green_pixels = calc_live_plants_percentage(binary)
 
     print(f'Percentage of pixels considered green based on a {green_threshold} threshold of {index_type} image: {percent_green_pixels}')
 
