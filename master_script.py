@@ -81,18 +81,17 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     # Calculate a percentage of pixels that are green according to your threshold cutoff
     percent_green_pixels = calc_live_plants_percentage(binary)
 
-    print(f'Percentage of pixels considered green based on a {green_threshold} threshold of {index_type} image: {percent_green_pixels}')
-
     # Convert binary into ubyte so it can be used as a mask and displayed
     binary = img_as_ubyte(binary)
 
     # Apply the binary mask to the VI image
     # Only keep the pixels where the binary mask is white (255)
-    img_masked = cv2.bitwise_and(vi_img, vi_img, mask = binary)
+    img_masked_display = cv2.bitwise_and(img, img, mask = binary)
+    img_masked_calc = cv2.bitwise_and(vi_img, vi_img, mask = binary)
 
     # Convert image into dataframe
     print('Converting image to dataframe...')
-    df = pd.DataFrame(img_masked.flat, columns=['intensity'])
+    df = pd.DataFrame(img_masked_calc.flat, columns=['intensity'])
 
     # Filter out all the zero values
     df = df[df['intensity'] != 0]
@@ -116,6 +115,7 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     plot_image = plt.imread('results/plotnine_plot.png')
     
     # Display images in a 2x3 grid
+    print('Arranging images in grid...')
     fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(12, 18))
 
     # Original Image
@@ -140,7 +140,7 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     axs[1, 1].axis('off')
 
     # Masked image
-    axs[2, 0].imshow(img_masked)
+    axs[2, 0].imshow(img_masked_display)
     axs[2, 0].set_title(f'Masked image with only green pixels visible')
     axs[2, 0].axis('off')
 
