@@ -181,19 +181,14 @@ def calc_live_plants_percentage(binary):
     It can be used to estimate how much of an image contains plants that are live. 
 
     Parameters:
-        vi_img: 
+        binary: 
             An image where every pixel value is a vegetative index value that has been
             converted into a binary image with a threshold operation
-        green_threshold: 
-            The cutoff vegetative index value that differentiates between a dead plant 
-            and a live plant. For example, with an RGBVI image, I prefer the threshold 130. 
     Returns:
         percent_green_pixels:
             The percent of all pixels in the image which are considered green based on a 
             given threshold
-        binary:
-            The image where all pixels considered green are white and the rest are black
-            (returned for debugging purposes)
+        
     '''
     
     # Make a binary image where pixels above the green threshold are considered green (white pixels)
