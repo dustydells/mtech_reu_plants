@@ -1,8 +1,10 @@
 import numpy as np
 import cv2
 import re
+import sys
 import glob
 import napari
+import spyndex
 from matplotlib import pyplot as plt
 from skimage import img_as_float, img_as_ubyte
 import skimage.filters as skfil
@@ -150,13 +152,11 @@ def apply_vegetative_index(img, index_type):
 
 
     else:
-        print('The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, vari, rgbvi, exg-exr')
-
-    if index_type != 'vari':
-        # Normalize index to range [0, 255] for visualization
-        normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
-    else:
-        normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
+        message = 'The index_type you supplied didn\'t match up with any of these options: exg, exr, grvi, vari, rgbvi, exg-exr'
+        print(message)
+        
+    # Normalize index to range [0, 255] for visualization
+    normalized = cv2.normalize(index, None, 0, 255, cv2.NORM_MINMAX)
 
     # Convert normalized index to an 8-bit image
     vegetated_img = normalized.astype(np.uint8)
