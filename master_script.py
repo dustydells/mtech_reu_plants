@@ -157,5 +157,8 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     # Save the grid to file
     plt.savefig(output_path)
 
+    # Close the plot so it doesn't slurp up all the memory
+    plt.close()
+
 
 main()
