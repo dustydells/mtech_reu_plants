@@ -60,7 +60,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
             String. Path of the output image that will be saved
         index_type:
             String. The vegetation index you'd like to use. 
-            Options: exg, exr, grvi, vari, rgbvi, exg-exr
+            Options: exg, exr, grvi, rgbvi, exg-exr
         green_threshold:
             Integer. The cutoff VI value that differentiates between green 
             and not green. Example: 130 works well for images on RGBVI scale. 
