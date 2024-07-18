@@ -21,7 +21,7 @@ def main():
     # Enter output path and filename here.
     output_path = 'results/master_script_output/example.jpg'
 
-    # Determine vegetative index that will be used
+    # Determine vegetation index that will be used
     index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
 
     # INVESTIGATE HISTOGRAM
@@ -58,7 +58,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
         output_path:
             String. Path of the output image that will be saved
         index_type:
-            String. The Vegetative index you'd like to use. 
+            String. The vegetation index you'd like to use. 
             Options: exg, exr, grvi, vari, rgbvi, exg-exr
         green_threshold:
             Integer. The cutoff VI value that differentiates between green 
@@ -83,8 +83,8 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     if denoise == True:
         img = cv2.bilateralFilter(img, d=9, sigmaColor=75, sigmaSpace=75)
 
-    # APPLY VEGETATIVE INDEX
-    vi_img = apply_vegetative_index(img, index_type)
+    # APPLY VEGETATION INDEX
+    vi_img = apply_vegetation_index(img, index_type)
 
     # THRESHOLD IMAGE
     binary = vi_img >= green_threshold
@@ -146,7 +146,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
         axs[0, 1].set_title('Cropped image')
     axs[0, 1].axis('off')
 
-    # Image modified by vegetative index
+    # Image modified by vegetation index
     axs[1, 0].imshow(vi_img, cmap='viridis')
     axs[1, 0].set_title(f'Image modified by {index_type}')
     axs[1, 0].axis('off')
