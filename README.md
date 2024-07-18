@@ -17,6 +17,7 @@ Parameters you can change in this function include:
 - The cutoff VI value that differentiates between green and not green. This may be different for each vegetative index and each set of photos, so experiment with different values. 
 - Whether you want to crop your image to a square or not. The napari GUI allows you to place four corners, and the script will crop your image according to those corners. I used this feature to crop images to the quadrat, thus making every image cover one meter of ground. 
 - Whether you want to denoise your image before processing it.
+
 You can use the file "master_script_on_multiple_images" or your own for loop to run this process on all the images in a folder. 
 All functions used by the master script are contained in the file "functions.py". It also contains other functions that I found useful during project development. 
 
