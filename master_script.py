@@ -35,12 +35,20 @@ def main():
     # Determine threshold that will differentiate between live and dead plants
     green_threshold = 160 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
 
+    # Determine whether your photos need to be cropped or not. 
+    crop = True
+
     # Run the process
-    run_script(path, output_path, index_type, green_threshold)
+    if crop == False:
+        run_script(path, output_path, index_type, green_threshold, crop)
+    elif crop == True: # If the image gets cropped, you can output it to a file so you only have to crop it once
+        cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
+        cv2.imwrite(f'results/image_cropped.jpg', cropped_img)
 
 
 
-def run_script(path, output_path, index_type, green_threshold, denoise=False, crop=False):
+
+def run_script(path, output_path, index_type, green_threshold, crop, denoise=False,):
     '''
     Run the entire process with the parameters you specified.
 
@@ -55,13 +63,16 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
         green_threshold:
             Integer. The cutoff VI value that differentiates between green 
             and not green. Example: 130 works well for images on RGBVI scale. 
+        crop:
+            Boolean. Whether you want to crop your image to a square using the napari
+            GUI or not.
         denoise:
-            Boolean. whether you want to denoise the image or not (default: False)
+            Boolean. Whether you want to denoise the image or not (default: False)
     '''
 
     # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
     img = plt.imread(path)
-    og_img = img # Save the original image so it can be included in the grid later
+    og_img = img # Save the original image so it can be included in the grid and saved to file later
 
     # CROP TO SQUARE
     if crop == True:
@@ -80,6 +91,9 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
 
     # Calculate a percentage of pixels that are green according to your threshold cutoff
     percent_green_pixels = calc_live_plants_percentage(binary)
+
+    # Turn the percent into an actual percent
+    percent_green_pixels = percent_green_pixels * 100
 
     # Convert binary into ubyte so it can be used as a mask and displayed
     binary = img_as_ubyte(binary)
@@ -100,10 +114,11 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
             pn.aes(x='intensity') + 
             pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
             pn.labs(
-                 x = 'Intensity',
-                 y = 'Count',
-                 title = f'Distribution of pixel intensity of {index_type} image'
-            ) +
+                x = 'Intensity',
+                y = 'Count',
+                title = f'Distribution of pixel intensity of {index_type} image',
+                caption = f'Percent of green pixels (green pixels / total pixels): {percent_green_pixels:.2f}%'
+                ) +
             pn.theme_classic()
     )
 
@@ -145,11 +160,8 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
     axs[2, 1].imshow(plot_image)
     axs[2, 1].axis('off')
 
-    # Turn the percent into an actual percent
-    percent = percent_green_pixels * 100
-
     # Add text to the figure (outside the subplots)
-    fig.text(0.5, 0.04, f'Percent of green pixels (green pixels / total pixels): {percent:.2f}%', ha='left', fontsize=12)
+    # fig.text(0.5, 0.04, f'Percent of green pixels (green pixels / total pixels): {percent:.2f}%', ha='left', fontsize=12)
 
 
     plt.tight_layout()
@@ -159,6 +171,9 @@ def run_script(path, output_path, index_type, green_threshold, denoise=False, cr
 
     # Close the plot so it doesn't slurp up all the memory
     plt.close()
+
+    if crop == True: 
+        return cropped_img
 
 
 main()
