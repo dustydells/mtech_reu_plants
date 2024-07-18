@@ -168,13 +168,12 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     # Add text to the figure (outside the subplots)
     # fig.text(0.5, 0.04, f'Percent of green pixels (green pixels / total pixels): {percent:.2f}%', ha='left', fontsize=12)
 
-
     plt.tight_layout()
 
     # Save the grid to file
     plt.savefig(output_path)
 
-
+    # If the image was cropped, return that image so it can be saved to your files outside
     if crop == True: 
         return cropped_img
 
