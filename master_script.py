@@ -16,10 +16,10 @@ def main():
     '''
 
     # Enter path to input image here.
-    path = 'raw_photos/20240613_130807.jpg'
+    path = 'raw_photos/445991875_1138921583827054_5931898624603533558_n.jpg'
 
     # Enter output path and filename here.
-    output_path = 'results/master_script_output/example_135_thresh.jpg'
+    output_path = 'results/master_script_output/example_dirt_135_thresh.jpg'
 
     # Determine vegetation index that will be used
     index_type = 'RGBVI' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
@@ -32,7 +32,8 @@ def main():
     # plt.hist(vi_img.flatten(), bins = 100)
     # plt.show()
 
-    # Determine threshold that will differentiate between live and dead plants
+    # Determine threshold that will differentiate between live and dead plants.
+    # Or experiment with skimage filters like otsu and median.
     green_threshold = 135 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
 
     # Determine whether your photos need to be cropped or not. 
@@ -43,7 +44,7 @@ def main():
         run_script(path, output_path, index_type, green_threshold, crop)
     elif crop == True: # If the image gets cropped, you can output it to a file so you only have to crop it once
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
-        cv2.imwrite(f'results/image_cropped.jpg', cropped_img)
+        plt.imsave(f'results/image_cropped.jpg', cropped_img)
 
 
 
