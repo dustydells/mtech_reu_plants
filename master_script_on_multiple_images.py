@@ -20,7 +20,7 @@ for i, path in enumerate(glob.glob(folder)):
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop=True)
 
         # Save the cropped images so you never have to go through that process again
-        cv2.imwrite(f'raw_photos_cropped/image_{i}')
+        cv2.imwrite(f'raw_photos_cropped/image_{i}.jpg', cropped_img)
 
         print('function has run for', path)
 
