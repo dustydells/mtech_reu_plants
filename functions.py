@@ -119,6 +119,9 @@ def apply_vegetation_index(img, index_type):
         vegetated_img: A grayscale image that maps value to vegetation index of each pixel
         
     '''
+    # Make sure index is lowercase
+    index_type = index_type.lower()
+
     # Extract the red, green, and blue channels. Note that it expects BGR images. 
     r = img[:, :, 2].astype(float)
     g = img[:, :, 1].astype(float)

@@ -19,10 +19,10 @@ def main():
     path = 'raw_photos/20240613_130807.jpg'
 
     # Enter output path and filename here.
-    output_path = 'results/master_script_output/example.jpg'
+    output_path = 'results/master_script_output/example_135_thresh.jpg'
 
     # Determine vegetation index that will be used
-    index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
+    index_type = 'RGBVI' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
 
     # INVESTIGATE HISTOGRAM
     '''
@@ -33,10 +33,10 @@ def main():
     # plt.show()
 
     # Determine threshold that will differentiate between live and dead plants
-    green_threshold = 130 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
+    green_threshold = 135 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
 
     # Determine whether your photos need to be cropped or not. 
-    crop = False
+    crop = True
 
     # Run the process
     if crop == False:
@@ -114,9 +114,9 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
             pn.aes(x='intensity') + 
             pn.geom_histogram(bins = 100, fill = 'lightseagreen') +
             pn.labs(
-                x = 'Intensity',
+                x = 'Vegetation Index Value (Pixel Intensity)',
                 y = 'Count',
-                title = f'Distribution of pixel intensity of {index_type} image',
+                title = f'Distribution of vegetation index values of green pixels in {index_type} image',
                 caption = f'Percent of green pixels (green pixels / total pixels): {percent_green_pixels:.2f}%'
                 ) +
             pn.theme_classic()
