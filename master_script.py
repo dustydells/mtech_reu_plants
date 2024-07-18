@@ -34,7 +34,7 @@ def main():
 
     # Determine threshold that will differentiate between live and dead plants.
     # Or experiment with skimage filters like otsu and median.
-    green_threshold = 160 # 135 worked well on quadrat photos. 155 worked well on willow leaf photos. 
+    green_threshold = 155 # 135 worked well on quadrat photos. 155 worked well on willow leaf photos. 
 
     # Determine whether your photos need to be cropped or not. 
     crop = False
