@@ -16,10 +16,10 @@ def main():
     '''
 
     # Enter path to input image here.
-    path = 'test_photos_greenhouse\\image_1.jpg'
+    path = 'raw_photos/20240613_130807.jpg'
 
     # Enter output path and filename here.
-    output_path = 'results/master_script_output/example_greenhouse.jpg'
+    output_path = 'results/master_script_output/example.jpg'
 
     # Determine vegetative index that will be used
     index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
@@ -33,10 +33,10 @@ def main():
     # plt.show()
 
     # Determine threshold that will differentiate between live and dead plants
-    green_threshold = 160 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
+    green_threshold = 130 # 130 worked well on quadrat photos. 160 worked well on willow leaf photos. 
 
     # Determine whether your photos need to be cropped or not. 
-    crop = True
+    crop = False
 
     # Run the process
     if crop == False:
@@ -126,6 +126,8 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     fig = plot.draw()
     fig.savefig('results/plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
     plot_image = plt.imread('results/plotnine_plot.png')
+    # Close the plot so it doesn't slurp up all the memory
+    plt.close()
     
     # Display images in a 2x3 grid
     fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(12, 18))
@@ -169,8 +171,6 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     # Save the grid to file
     plt.savefig(output_path)
 
-    # Close the plot so it doesn't slurp up all the memory
-    plt.close()
 
     if crop == True: 
         return cropped_img
