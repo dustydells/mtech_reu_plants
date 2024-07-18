@@ -4,19 +4,19 @@ from master_script import run_script
 
 
 # Enter path to folder that contains all photos that will be sent through the loop
-folder = 'test_photos_greenhouse\\*'
+folder = 'raw_photos\\*'
 
 # Determine parameters
-index_type = 'exg'
-green_threshold = 155
-crop = False
+index_type = 'rgbvi'
+green_threshold = 135
+crop = True
 
 for i, path in enumerate(glob.glob(folder)):
-    # # Skip the ones I've already done
-    # if i <= 19:
-    #     continue
-    # else:
-        output_path = f'results/master_script_output/all_photos/greenhouse_grid_{i}.jpg'
+    # Skip the ones I've already done
+    if i <= 57:
+        continue
+    else:
+        output_path = f'results/master_script_output/all_photos/grid_{i}.jpg'
 
         if crop == True: # if the images are getting cropped, save it to file
             cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
