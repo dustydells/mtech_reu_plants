@@ -16,10 +16,10 @@ def main():
     '''
 
     # Enter path to input image here.
-    path = 'raw_photos/445991875_1138921583827054_5931898624603533558_n.jpg'
+    path = 'raw_photos/20240613_124445.jpg'
 
     # Enter output path and filename here.
-    output_path = 'results/master_script_output/example_dirt_135_thresh.jpg'
+    output_path = 'results/master_script_output/example.jpg'
 
     # Determine vegetation index that will be used
     index_type = 'RGBVI' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
