@@ -126,6 +126,9 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     fig = plot.draw()
     fig.savefig('results/plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
     plot_image = plt.imread('results/plotnine_plot.png')
+    
+    # Explicitly delete the plot object
+    del plot
     # Close the plot so it doesn't slurp up all the memory
     plt.close()
     
