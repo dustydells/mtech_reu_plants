@@ -1,5 +1,5 @@
 '''
-Run this script to get the vegetative index information from images. 
+Run this script to get the vegetation index information from images. 
 Specify your parameters in the main function.
 '''
 
@@ -8,7 +8,7 @@ import pandas as pd
 import plotnine as pn
 from skimage import img_as_ubyte
 from matplotlib import pyplot as plt
-from functions import crop_to_square, apply_vegetative_index, calc_live_plants_percentage
+from functions import crop_to_square, apply_vegetation_index, calc_live_plants_percentage
 
 def main():
     '''

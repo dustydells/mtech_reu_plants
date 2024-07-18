@@ -15,7 +15,7 @@ import skimage.filters as skfil
 1. Crop every image to its quadrat using the napari gui
 2. Resize every image to the smallest length in the folder of photos
 3. denoise images
-4. Apply vegetative index
+4. Apply vegetation index
 5. Convert pixel information into a csv
 
 '''
@@ -105,18 +105,18 @@ def crop_to_square(img):
 
 
 
-# VEGETATIVE INDECES
-def apply_vegetative_index(img, index_type):
+# VEGETATION INDECES
+def apply_vegetation_index(img, index_type):
     '''
-    Calculate the specified vegetative index and apply it to the image. 
+    Calculate the specified vegetation index and apply it to the image. 
     Note that "+ 1e-6" is added any time it could help prevent divide-by-zero errors. 
 
     Parameters:
-        img: The image for which you want the vegetative index of each pixel, 
+        img: The image for which you want the vegetation index of each pixel, 
             in BGR (This function assumes that you have used cv2.imread() in order to load in this photo)
-        index_type: The Vegetative index you'd like to use. Options: exg, exr, grvi, rgbvi, exg-exr
+        index_type: The vegetation index you'd like to use. Options: exg, exr, grvi, rgbvi, exg-exr
     Returns:
-        vegetated_img: A grayscale image that maps value to vegetative index of each pixel
+        vegetated_img: A grayscale image that maps value to vegetation index of each pixel
         
     '''
     # Extract the red, green, and blue channels. Note that it expects BGR images. 
@@ -175,7 +175,7 @@ def apply_vegetative_index(img, index_type):
 # Calculate percent of ground covered by live (green plants) given a VI image
 def calc_live_plants_percentage(binary):
     '''
-    This function takes an image that has been modified by a vegetative index and
+    This function takes an image that has been modified by a vegetation index and
     converted into a binary image with a threshold operation, and calculates the 
     percentage of the pixels in that image which meet a threshold. 
     It can be used to estimate how much of an image contains plants that are live. 
