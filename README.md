@@ -12,6 +12,11 @@ The file called "master_script.py" will take the path to one image and return a 
 ![Example of output (quadrat)](results/master_script_output/example.jpg) 
 ![Example of output (willow leaves)](results/master_script_output/example_greenhouse.jpg)
 It outputs several images representing steps in the editing process in addition to a histogram that displays the distribution of vegetation index values for every pixel. 
+Parameters you can change in this function include:
+- The vegetation index you'd like to use. Options: exg, exr, grvi, rgbvi, exg-exr
+- The cutoff VI value that differentiates between green and not green. This may be different for each vegetative index and each set of photos, so experiment with different values. 
+- Whether you want to crop your image to a square using the napari GUI or not.
+- Whether you want to denoise your image before processing it.
 You can use the file "master_script_on_multiple_images" or your own for loop to run this process on all the images in a folder. 
 All functions used by the master script are contained in the file "functions.py". It also contains other functions that I found useful during project development. 
 

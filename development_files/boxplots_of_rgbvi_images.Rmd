@@ -47,59 +47,6 @@ img_into_dataframe <- function(image_path, cutoff_threshold) {
   
 }
 
-# save_boxplot <- function(img_df, image_path, outputdir) {
-#   
-#   # Build the plot
-#   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
-#     geom_boxplot(fill = 'olivedrab') +
-#     coord_flip() +
-#     labs(
-#       x = 'Pixel Luminosity',
-#       y = file_name
-#     ) +
-#     theme(
-#       panel.background = element_blank(),
-#       axis.ticks = element_blank(),
-#       axis.text.x = element_blank(),
-#       panel.grid = element_blank(),
-#       panel.grid.major.y = element_line('gray75')
-#       )
-#   
-#   plot_name <- paste0('boxplot_', image_path)
-#   
-#   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
-#   
-#   message(paste("Plot saved for:", file_name))
-# 
-#   
-# }
-# 
-# save_first_boxplot <- function(img_df, image_path, outputdir) {
-#   
-#   # Build the plot
-#   plot <- ggplot(img_df, aes(x = pixel_intensity, y = 1)) +
-#     geom_boxplot(fill = 'olivedrab') +
-#     coord_flip() +
-#     labs(
-#       x = 'Pixel Intensity',
-#       y = file_name
-#     ) +
-#     theme(
-#       panel.background = element_blank(),
-#       axis.ticks = element_blank(),
-#       axis.text.x = element_blank(),
-#       panel.grid = element_blank(),
-#       panel.grid.major.y = element_line('gray75')
-#       )
-#   
-#   
-#   plot_name <- paste0('boxplot_', image_path)
-#   
-#   ggsave(filename=plot_name, plot=plot, path=outputdir, width=1.25, height = 8)
-#   
-#   message(paste("Plot saved for:", file_name))
-# }
-
 ```
 
 
