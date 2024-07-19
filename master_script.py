@@ -49,7 +49,7 @@ def main():
 
 
 
-def run_script(path, output_path, index_type, green_threshold, crop, keep_cropped_image=False, denoise=False):
+def run_script(path, output_path, index_type, green_threshold, crop, keep_cropped_image=False, denoise=False, raw_imgs_path=''):
     '''
     Run the entire process with the parameters you specified.
 
@@ -73,11 +73,21 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
             (default: False)
         denoise:
             Boolean. Whether you want to denoise the image or not (default: False)
+        raw_imgs_path:
+            Str. The path to the original folder of uncropped files - use this if your
+            images have already been cropped and saved in a folder. It's here so the output
+            image will still include the original uncropped image even though you aren't 
+            cropping it within this function. (default = '')
     '''
 
     # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
     img = plt.imread(path)
-    og_img = img # Save the original image so it can be included in the grid and saved to file later
+
+    # Save the original uncropped image for the grid display (for if your photos are already cropped and in a folder)
+    if raw_imgs_path != '':
+        og_img = plt.imread(raw_imgs_path)
+    else:
+        og_img = img # Save the original image so it can be included in the grid and saved to file later
 
     # CROP TO SQUARE
     if crop == True:
