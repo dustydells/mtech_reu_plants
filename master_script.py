@@ -158,7 +158,11 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     if crop == True:
         # Cropped image
         axs[0, 1].imshow(cropped_img, cmap='gray')
-        axs[0, 1].set_title('Cropped image')        
+        axs[0, 1].set_title('Cropped image') 
+    else:
+        # Display cropped image from files
+        axs[0, 1].imshow(img, cmap='gray')
+        axs[0, 1].set_title('Cropped image') 
     axs[0, 1].axis('off')
 
     # Image modified by vegetation index
