@@ -1,0 +1,11 @@
+
+# IMPORTING FUNCTIONS FROM DIFFERENT DIRECTORY
+import sys
+import os
+
+# Add the directory containing your module to the Python path
+module_path = os.path.abspath(os.path.join("C://Users//dusty//Documents//REU_2024//mtech_reu_plants"))
+if module_path not in sys.path:
+    sys.path.append(module_path)
+
+from functions import
