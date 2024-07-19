@@ -15,6 +15,9 @@ if run_w_already_cropped == True:
     raw_imgs_folder = 'raw_photos_numbered\\*' # Put the path to the raw images here
     raw_files = reorder_file_paths(raw_imgs_folder)
 
+# Check ur filenames
+# for i in range(len(files)):
+#     print(files[i], raw_files[i])
 
 # Determine parameters
 index_type = 'rgbvi'
