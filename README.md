@@ -10,7 +10,11 @@ These photos can be found in the folders "raw_photos" and "test_photos_greenhous
 ### What is a vegetation index?
 A vegetation index is an equation that tells you how "green" a pixel is. It is designed to identify crops and plants. The equation uses RGB channels (some equations involve near infrared channels. I used a phone camera for this project and did not have access to near infrared data, so I used the vegetation index equations that only involve RGB values.) to calculate a single value.  
 For example, this is the Red Green Blue Vegetation Index (RGBVI):  
-![RGBVI equation](vi_equation_images/RGBVI_with_background.png)
+![RGBVI equation](vi_equation_images/RGBVI_with_background.png)  
+When applied to an image, each pixel value becomes its vegetation index value. The result is a grayscale image where the lightest pixels are the ones considered the most green. 
+
+### What is thresholding?
+Thresholding is an image analysis technique that segments out parts of an image where the pixel values are over a threshold. For example, when using the RGBVI, pixels with values greater than 135 generally correspond to plant matter. So I used a threshold of 135 for my RGBVI images.
 
 ## Usage
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
