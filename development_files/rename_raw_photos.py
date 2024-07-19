@@ -1,13 +1,12 @@
 import glob
 from matplotlib import pyplot as plt
-from functions import extract_filename_number
+from functions import extract_filename_number, reorder_file_paths
 
 # Enter path to folder that contains all photos that will be sent through the loop
 folder = 'raw_photos_cropped\\*'
-files = []
-# Get a list of all the files in that folder 
-for file in glob.glob(folder):
-    files.append(file)
+
+# Arrange the files by the number in the name
+files = reorder_file_paths(folder)
 
 
 # If your images have already been cropped and save, enter a folder here that contains the original photos before they were cropped. 
@@ -33,9 +32,12 @@ for i in range(len(files)):
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 
     # Arrange images in a side by side grid
-    axs[0, 0].imshow(cropped_img)
-    axs[0, 1].imshow(raw_img)
+    axs[0].imshow(cropped_img)
+    axs[1].imshow(raw_img)
 
-    plt.savefig(f'results/alignment_test/image_{cropped_photo_num}.jpg')
+    plt.savefig(f'results/alignment_test/image_{i}.jpg')
+    
+    # Close the plot so it doesn't slurp up all the memory
+    plt.close()
 
-    print(f'figure saved for image {cropped_photo_num}')
+    print(f'figure saved for image {i}')
