@@ -1,5 +1,15 @@
 import glob
 from matplotlib import pyplot as plt
+
+# IMPORTING FUNCTIONS FROM DIFFERENT DIRECTORY
+import sys
+import os
+
+# Add the directory containing your module to the Python path
+module_path = os.path.abspath(os.path.join("C://Users//dusty//Documents//REU_2024//mtech_reu_plants"))
+if module_path not in sys.path:
+    sys.path.append(module_path)
+
 from functions import extract_filename_number, reorder_file_paths
 
 # Enter path to folder that contains all photos that will be sent through the loop
