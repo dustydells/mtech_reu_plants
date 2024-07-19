@@ -24,14 +24,15 @@ if run_w_already_cropped == True:
 # Determine parameters
 index_type = 'rgbvi'
 green_threshold = 135
-crop = True
+crop = False
 keep_cropped_image = False
 
-for i, path in enumerate(range(files)):
+for i in range(len(files)):
     # Skip the ones I've already done
     # if i <= 57: # suffering
     #     continue
     # else:
+        path = files[i]
         output_path = f'results/master_script_output/all_photos/grid_{i}.jpg'
 
         # if the images are getting cropped, save it to file
