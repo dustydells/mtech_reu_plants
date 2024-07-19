@@ -16,13 +16,13 @@ def main():
     '''
 
     # Enter path to input image here.
-    path = 'test_photos_greenhouse/image_2.jpg'
+    path = 'raw_photos_cropped/image_2.jpg'
 
     # Enter output path and filename here.
     output_path = 'results/master_script_output/example_greenhouse.jpg'
 
     # Determine vegetation index that will be used
-    index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
+    index_type = 'rgbvi' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
 
     # INVESTIGATE HISTOGRAM
     '''
@@ -34,7 +34,7 @@ def main():
 
     # Determine threshold that will differentiate between live and dead plants.
     # Or experiment with skimage filters like otsu and median.
-    green_threshold = 155 # 135 worked well on quadrat photos. 155 worked well on willow leaf photos. 
+    green_threshold = 135 # 135 worked well on quadrat photos. 155 worked well on willow leaf photos. 
 
     # Determine whether your photos need to be cropped or not. 
     crop = False
@@ -49,7 +49,7 @@ def main():
 
 
 
-def run_script(path, output_path, index_type, green_threshold, crop, denoise=False,):
+def run_script(path, output_path, index_type, green_threshold, crop, keep_cropped_image=False, denoise=False):
     '''
     Run the entire process with the parameters you specified.
 
@@ -67,6 +67,10 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
         crop:
             Boolean. Whether you want to crop your image to a square using the napari
             GUI or not.
+        keep_cropped_image:
+            Boolean. Whether you want to keep the cropped image or not. If this parameter
+            is set to True, it will return the cropped image so it can be saved externally. 
+            (default: False)
         denoise:
             Boolean. Whether you want to denoise the image or not (default: False)
     '''
@@ -151,6 +155,9 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     axs[1, 0].imshow(vi_img, cmap='viridis')
     axs[1, 0].set_title(f'Image modified by {index_type}')
     axs[1, 0].axis('off')
+    # Add colorbar
+    cbar = fig.colorbar(vi_img, ax=axs[1, 0], orientation='vertical')
+    cbar.set_label('Index Value')  # You can label the colorbar as needed
 
     # Binary image of pixels considered green
     axs[1, 1].imshow(binary, cmap='gray')
@@ -175,7 +182,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, denoise=Fal
     plt.savefig(output_path)
 
     # If the image was cropped, return that image so it can be saved to your files outside
-    if crop == True: 
+    if keep_cropped_image == True: 
         return cropped_img
 
 
