@@ -10,7 +10,7 @@ These photos can be found in the folders "raw_photos" and "test_photos_greenhous
 ### What is a vegetation index?
 A vegetation index is an equation that tells you how "green" a pixel is. It is designed to identify crops and plants. The equation uses RGB channels (some equations involve near infrared channels. I used a phone camera for this project and did not have access to near infrared data, so I used the vegetation index equations that only involve RGB values.) to calculate a single value.
 For example, this is the Red Green Blue Vegetation Index (RGBVI):
-{\text{RGBVI}} = \frac{{G^{2} - B*R}}{{G^{2} + B*R}}
+$RGBVI = \dfrac{G^2 - B*R}{G^2 - B*R}$
 
 ## Usage
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
