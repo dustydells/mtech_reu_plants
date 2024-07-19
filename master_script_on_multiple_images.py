@@ -1,13 +1,12 @@
 import glob
 from matplotlib import pyplot as plt
-from master_script import run_script, list_all_paths
+from master_script import run_script
 
 
 # Enter path to folder that contains all photos that will be sent through the loop
 folder = 'raw_photos_cropped\\*'
 # Get a list of all the files in that folder 
-files = list_all_paths(folder)
-print(files)
+
 
 # If your images have already been cropped and save, enter a folder here that contains the original photos before they were cropped. 
 raw_imgs_folder = 'raw_photos\\*'
