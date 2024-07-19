@@ -14,19 +14,16 @@ from functions import extract_filename_number, reorder_file_paths
 
 # Enter path to folder that contains all photos that will be sent through the loop
 folder = 'raw_photos_cropped\\*'
-
 # Arrange the files by the number in the name
 files = reorder_file_paths(folder)
 
-
 # If your images have already been cropped and save, enter a folder here that contains the original photos before they were cropped. 
 run_w_already_cropped = True
-# Save the filenames in a list
+
+# Save the filenames in a list - should be in the same order as other reordered folder
 if run_w_already_cropped == True:
-    raw_files = []
     raw_imgs_folder = 'raw_photos\\*' # Put the path to the raw images here
-    for raw_file in glob.glob(raw_imgs_folder):
-        raw_files.append(raw_file)
+    raw_files = reorder_file_paths(raw_imgs_folder) # rearrange the files by key 
 
 for i in range(len(files)):
     print(files[i], raw_files[i])
