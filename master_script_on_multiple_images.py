@@ -45,7 +45,7 @@ for i in range(len(files)):
         # If the files have already been cropped and saved in a folder
         elif run_w_already_cropped == True:
             raw_imgs_path = raw_files[i]
-            run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path)
+            run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path=raw_imgs_path)
             print(f'script ran for image {i}')
 
         # Just run the function like normal!!
