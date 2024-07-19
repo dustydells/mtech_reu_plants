@@ -14,7 +14,7 @@ For example, this is the Red Green Blue Vegetation Index (RGBVI):
 When applied to an image, each pixel value becomes its vegetation index value. The result is a grayscale image where the lightest pixels are the ones considered the most green. 
 For example, this is an image before and after being modified by the RGBVI.
 ![image before and after RGBVI](presentation_images/before_and_after_rgbvi_image_15.png)
-It 
+Images modified by a vegetation index output as grayscale (each pixel has only one value), but if you view / save the images with the Matplotlib library like in these examples, they output with the viridis color map by default. 
 
 ### What is thresholding?
 Thresholding is an image analysis technique that segments out parts of an image where the pixel values are over a threshold. For example, when using the RGBVI, pixels with values greater than 135 generally correspond to plant matter. So I used a threshold of 135 for my RGBVI images.
