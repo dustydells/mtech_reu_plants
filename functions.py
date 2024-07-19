@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import re
+import os
 import sys
 import glob
 import napari
@@ -384,3 +385,22 @@ def calc_pixels_to_cm(img):
     pixels_to_cm = 100 / img.shape[0]
 
     return pixels_to_cm
+
+def list_all_paths(folder_path):
+    '''
+    Get a list of all the files in a folder
+
+    Parameters:
+        folder_path:
+            Str. Path to the folder you want the paths for
+    Returns:
+        paths:
+            List. List of paths in the folder you specified
+    '''
+    paths = []
+    for root, directories, files in os.walk(folder_path):
+        for directory in directories:
+            paths.append(os.path.join(root, directory))
+        for file in files:
+            paths.append(os.path.join(root, file))
+    return paths
