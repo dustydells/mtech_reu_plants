@@ -156,8 +156,8 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     axs[1, 0].set_title(f'Image modified by {index_type}')
     axs[1, 0].axis('off')
     # Add colorbar
-    cbar = fig.colorbar(vi_img, ax=axs[1, 0], orientation='vertical')
-    cbar.set_label('Index Value')  # You can label the colorbar as needed
+    # cbar = fig.colorbar(vi_img, ax=axs[1, 0], orientation='vertical')
+    # cbar.set_label('Index Value')  # You can label the colorbar as needed
 
     # Binary image of pixels considered green
     axs[1, 1].imshow(binary, cmap='gray')
