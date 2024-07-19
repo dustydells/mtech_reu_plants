@@ -48,7 +48,7 @@ for i in range(len(files)):
             run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path=raw_imgs_path)
             print(f'script ran for image {i}')
 
-        # Just run the function like normal!!
+        # Otherwise, just run the function like normal!!
         else:
             run_script(path, output_path, index_type, green_threshold, crop)
 
