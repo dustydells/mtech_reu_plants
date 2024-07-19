@@ -10,6 +10,7 @@ folder = 'raw_photos\\*'
 index_type = 'rgbvi'
 green_threshold = 135
 crop = True
+keep_cropped_image = False
 
 for i, path in enumerate(glob.glob(folder)):
     # Skip the ones I've already done
