@@ -31,6 +31,7 @@ This script contains a for loop so you can input a folder of images and get a re
 
 ### development_files
 This folder contains miscellaneous files I used in development. They can potentially be useful for learning more about the techniques used in this project. Some are unsuccessful experiments that could be taken further. segment_and_analyze_rocks.ipynb, for example, was the file where I tried to use segmentation to isolate rocks and record data about them. I didn't have time to figure it out, but maybe someone else will.
+These files are older, and a lot of them came before some major reorganizations. I updated all the paths I could, but be aware that I may have missed a few. Don't be alarmed by filenotfound errors - just update the path to something that works for you.
 - sandbox.ipynb:
     This notebook contains a lot of the code I wrote while going through digitalsreeni's Python for Microscopy tutorials. It is organized with headers so it can be a resource for skills I learned from Sreeni.
 - "how_to" files:
