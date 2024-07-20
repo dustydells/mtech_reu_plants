@@ -19,7 +19,24 @@ Images modified by a vegetation index output as grayscale (each pixel has only o
 ### What is thresholding?
 Thresholding is an image analysis technique that segments out parts of an image where the pixel values are over a threshold. For example, when using the RGBVI, pixels with values greater than 135 generally correspond to plant matter. So I used a threshold of 135 for my RGBVI images.
 
-## Usage
+## Guide to the files and usage
+### functions.py
+This file contains all the functions I used during this project. The first three are functions used in the main process. The rest are miscellaneous functions that proved useful during development. 
+
+### master_script.py
+This script will run the main process on one image. Start with this one because the main function walks you through the process. 
+
+### master_script_on_multiple_images.py
+This script contains a for loop so you can input a folder of images and get a result for each one of them.
+
+### development_files
+This folder contains miscellaneous files I used in development. 
+- sandbox.ipynb:
+    This notebook contains a lot of the code I wrote while going through digitalsreeni's Python for Microscopy tutorials. It is organized with headers so it can be a resource for skills I learned from Sreeni.
+- "how_to" files
+    These 
+
+
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
 ![Example of output (quadrat)](results/master_script_output/example.jpg) 
 ![Example of output (willow leaves)](results/master_script_output/example_greenhouse.jpg)
