@@ -8,4 +8,4 @@ module_path = os.path.abspath(os.path.join("C://Users//dusty//Documents//REU_202
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from functions import
+from functions import crop_to_square
