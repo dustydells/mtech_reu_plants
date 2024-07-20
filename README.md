@@ -38,6 +38,9 @@ This folder contains miscellaneous files I used in development. They can potenti
 - The rest of the development files: 
     These files are the places where I tested various methods on the test photos. 
 
+### photos
+This folder contains all the images used for this project. The test photos are a haphazard subset that I used to test
+
 
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
 ![Example of output (quadrat)](results/master_script_output/example.jpg) 
