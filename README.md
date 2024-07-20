@@ -30,11 +30,13 @@ This script will run the main process on one image. Start with this one because 
 This script contains a for loop so you can input a folder of images and get a result for each one of them.
 
 ### development_files
-This folder contains miscellaneous files I used in development. 
+This folder contains miscellaneous files I used in development. They can potentially be useful for learning more about the techniques used in this project. Some are unsuccessful experiments that could be taken further. segment_and_analyze_rocks.ipynb, for example, was the file where I tried to use segmentation to isolate rocks and record data about them. I didn't have time to figure it out, but maybe someone else will.
 - sandbox.ipynb:
     This notebook contains a lot of the code I wrote while going through digitalsreeni's Python for Microscopy tutorials. It is organized with headers so it can be a resource for skills I learned from Sreeni.
-- "how_to" files
-    These 
+- "how_to" files:
+    These are similar to the sandbox - used for learning new skills and can be used for reference
+- The rest of the development files: 
+    These files are the places where I tested various methods on the test photos. 
 
 
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
