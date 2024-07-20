@@ -13,7 +13,7 @@ if module_path not in sys.path:
 from functions import extract_filename_number, reorder_file_paths
 
 # Enter path to folder that contains all photos that will be sent through the loop
-folder = 'raw_photos_cropped\\*'
+folder = '..\\photos\\raw_photos_cropped\\*'
 # Arrange the files by the number in the name
 files = reorder_file_paths(folder)
 
@@ -22,7 +22,7 @@ run_w_already_cropped = True
 
 # Save the filenames in a list - should be in the same order as other reordered folder
 if run_w_already_cropped == True:
-    raw_imgs_folder = 'raw_photos\\*' # Put the path to the raw images here
+    raw_imgs_folder = '..\\photos\\raw_photos\\*' # Put the path to the raw images here
     raw_files = reorder_file_paths(raw_imgs_folder) # rearrange the files by key 
 
 for i in range(len(files)):
@@ -42,7 +42,7 @@ for i in range(len(files)):
     axs[0].imshow(cropped_img)
     axs[1].imshow(raw_img)
 
-    plt.savefig(f'results/alignment_test/image_{i}.jpg')
+    plt.savefig(f'../results/alignment_test/image_{i}.jpg')
     
     # Close the plot so it doesn't slurp up all the memory
     plt.close()
