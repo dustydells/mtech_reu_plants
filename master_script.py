@@ -15,11 +15,10 @@ def main():
     Determine your parameters here. 
     '''
 
-    # Enter path to input image here.
-    path = 'test_photos_greenhouse/image_2.jpg'
-
-    # Enter output path and filename here.
-    output_path = 'results/master_script_output/example_greenhouse.jpg'
+    # Enter parameters.
+    path = 'test_photos_greenhouse/image_2.jpg' # path to input image
+    output_path = 'results/master_script_output/example_greenhouse.jpg' # output path and filename
+    crop = False # whether your photos need to be cropped or not.
 
     # Determine vegetation index that will be used
     index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
@@ -36,8 +35,6 @@ def main():
     # Or experiment with skimage filters like otsu and median.
     green_threshold = 155 # 135 worked well on quadrat photos. 155 worked well on willow leaf photos. 
 
-    # Determine whether your photos need to be cropped or not. 
-    crop = False
 
     # Run the process
     if crop == False:
