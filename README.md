@@ -39,7 +39,13 @@ This folder contains miscellaneous files I used in development. They can potenti
     These files are the places where I tested various methods on the test photos. 
 
 ### photos
-This folder contains all the images used for this project. The test photos are a haphazard subset that I used to test
+This folder contains all the images used for this project. The test photos are a haphazard subset that I used to test image analysis techniques. The greenhouse images are the photos of willow leaves and stems on gray backgrounds. I took all the photos of the quadrats and ground, and the greenhouse images were produced by Joel Graff's research.
+
+### presentation_images
+Images I used for presentation and the readme and stuff. Good for learning about the project and what it does. 
+
+### results
+This is where I outputted the results of all my programs. The master_script_output folder is where the results of the main process are, but the other folders contain results of various tests and experiments I did during development. 
 
 
 The file called "master_script.py" will take the path to one image and return a grid of figures like the images below.  
