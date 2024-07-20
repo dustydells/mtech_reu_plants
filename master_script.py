@@ -17,8 +17,9 @@ def main():
 
     # Enter parameters.
     path = 'test_photos_greenhouse/image_2.jpg' # path to input image
-    output_path = 'results/master_script_output/example_greenhouse.jpg' # output path and filename
-    crop = False # whether your photos need to be cropped or not.
+    output_path = 'results/master_script_output/example_greenhouse.jpg' # output path and filename. This is where your result will be saved. 
+    crop = False # whether your photos need to be cropped into a square or not.
+    keep_cropped_image = False # If your photos get cropped, choose here whether you want the cropped image to be saved. Definitely do this if you have to crop a lot of photos at once in a for loop or something. It takes forever and you should only have to do it once. 
 
     # Determine vegetation index that will be used
     index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
@@ -26,7 +27,8 @@ def main():
     # INVESTIGATE HISTOGRAM
     '''
     You can find out what threshold to use by uncommenting this code and checking out the histogram
-    made from the values in your image. Try different values and see what works.
+    made from the values in your image after it has been sent through the "apply_vegetative_index"
+    function. Try different values and see what works.
     '''
     # plt.hist(vi_img.flatten(), bins = 100)
     # plt.show()
@@ -39,9 +41,12 @@ def main():
     # Run the process
     if crop == False:
         run_script(path, output_path, index_type, green_threshold, crop)
-    elif crop == True: # If the image gets cropped, you can output it to a file so you only have to crop it once
+
+    elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
-        plt.imsave(f'results/image_cropped.jpg', cropped_img)
+
+        if keep_cropped_image == True: # Save the images that get cropped in case you have to run this process more than once. 
+            plt.imsave(f'results/image_cropped.jpg', cropped_img)
 
 
 
@@ -71,7 +76,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
         denoise:
             Boolean. Whether you want to denoise the image or not (default: False)
         raw_imgs_path:
-            Str. The path to the original folder of uncropped files - use this if your
+            String. The path to the original folder of uncropped files - use this if your
             images have already been cropped and saved in a folder. It's here so the output
             image will still include the original uncropped image even though you aren't 
             cropping it within this function. (default = '')
