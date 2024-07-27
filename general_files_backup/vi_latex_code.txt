@@ -1,1 +1,0 @@
-\text{RGBVI} = \dfrac{G^2-B*R}{G^2+B*R}
