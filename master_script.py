@@ -40,7 +40,7 @@ def main():
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos/test_photos_cropped')
+        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos\\test_photos_cropped')
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
