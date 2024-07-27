@@ -3,8 +3,8 @@
 
 ## About the Project
 The purpose of this project is to automate the process of segmenting images into categories - live plants and not. The photos used are primarily images of the ground that contain quadrats (a 1x1 meter pvc pipe square, generally used to quantify a square meter of ground in ecological surveys). There are also some pictures of plucked willow leaves and stems on gray backgrounds.  
-![image containing quadrat](raw_photos/20240530_164307.jpg)
-![image containing willow leaves](test_photos_greenhouse/image_1.JPG)
+![image containing quadrat](photos/raw_photos/20240530_164307.jpg)
+![image containing willow leaves](photos/test_photos_greenhouse/image_1.JPG)
 These photos can be found in the folders "raw_photos" and "test_photos_greenhouse." Both are contained inside of the "photos" main folder. 
 
 ### What is a vegetation index?
