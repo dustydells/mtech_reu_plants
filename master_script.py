@@ -169,12 +169,12 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     axs[0, 1].axis('off')
 
     # Image modified by vegetation index
-    axs[1, 0].imshow(vi_img, cmap='viridis')
+    image_object = axs[1, 0].imshow(vi_img, cmap='viridis')
     axs[1, 0].set_title(f'Image modified by {index_type}')
     axs[1, 0].axis('off')
     # Add colorbar
-    # cbar = fig.colorbar(vi_img, ax=axs[1, 0], orientation='vertical')
-    # cbar.set_label('Index Value')  # You can label the colorbar as needed
+    cbar = fig.colorbar(image_object, ax=axs[1, 0], orientation='vertical')
+    cbar.set_label('Index Value')  # You can label the colorbar as needed
 
     # Binary image of pixels considered green
     axs[1, 1].imshow(binary, cmap='gray')
@@ -186,7 +186,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     axs[2, 0].imshow(img_masked_display)
     axs[2, 0].set_title(f'Masked image with only green pixels visible')
     axs[2, 0].axis('off')
-    plt.imsave('presentation_images/masked.jpg', img_masked_display) # Save the image here if u wanna
+    # plt.imsave('presentation_images/masked.jpg', img_masked_display) # Save the image here if u wanna
 
     # Histogram
     axs[2, 1].imshow(plot_image)
