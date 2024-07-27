@@ -40,7 +40,7 @@ def main():
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos\\test_photos_cropped')
+        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos\\test_photos_cropped\\image_13.jpg')
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
@@ -76,10 +76,10 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
         denoise:
             Boolean. Whether you want to denoise the image or not (default: False)
         raw_imgs_path:
-            String. The path to the original folder of uncropped files - use this if your
-            images have already been cropped and saved in a folder. It's here so the output
-            image will still include the original uncropped image even though you aren't 
-            cropping it within this function. (default = '')
+            String. The path to the original folder of uncropped files, or on the original
+            uncropped image. - use this if your images have already been cropped and saved
+            in a folder. It's here so the output image will still include the original 
+            uncropped image even though you aren't cropping it within this function. (default = '')
     '''
 
     # Read in the file in RGB with pyplot (must be in RGB for quadrat crop to work)
@@ -87,7 +87,8 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
 
     # Save the original uncropped image for the grid display (for if your photos are already cropped and in a folder)
     if raw_imgs_path != '':
-        og_img = plt.imread(raw_imgs_path)
+        img = plt.imread(raw_imgs_path)
+        og_img = img
     else:
         og_img = img # Save the original image so it can be included in the grid and saved to file later
 
@@ -179,13 +180,13 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     axs[1, 1].imshow(binary, cmap='gray')
     axs[1, 1].set_title(f'Binary image of pixels considered green by {green_threshold} threshold')
     axs[1, 1].axis('off')
-    plt.imsave('presentation_images/binary.jpg', binary, cmap='gray') # Save the image here if u wanna
+    # plt.imsave('presentation_images/binary.jpg', binary, cmap='gray') # Save the image here if u wanna
 
     # Masked image
     axs[2, 0].imshow(img_masked_display)
     axs[2, 0].set_title(f'Masked image with only green pixels visible')
     axs[2, 0].axis('off')
-    # plt.imsave('presentation_images/masked.jpg', img_masked_display) # Save the image here if u wanna
+    plt.imsave('presentation_images/masked.jpg', img_masked_display) # Save the image here if u wanna
 
     # Histogram
     axs[2, 1].imshow(plot_image)
