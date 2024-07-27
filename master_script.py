@@ -18,7 +18,7 @@ def main():
     # Enter parameters.
     path = 'photos/test_photos/image_13.jpg' # path to input image
     output_path = 'results/master_script_output/poster_example.jpg' # output path and filename. This is where your result will be saved. 
-    crop = True # whether your photos need to be cropped into a square or not.
+    crop = False # whether your photos need to be cropped into a square or not.
     keep_cropped_image = False # If your photos get cropped, choose here whether you want the cropped image to be saved. Definitely do this if you have to crop a lot of photos at once in a for loop or something. It takes forever and you should only have to do it once. 
 
     # Determine vegetation index that will be used
@@ -40,7 +40,7 @@ def main():
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop)
+        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos/test_photos_cropped')
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
@@ -179,11 +179,13 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
     axs[1, 1].imshow(binary, cmap='gray')
     axs[1, 1].set_title(f'Binary image of pixels considered green by {green_threshold} threshold')
     axs[1, 1].axis('off')
+    plt.imsave('presentation_images/binary.jpg', binary, cmap='gray') # Save the image here if u wanna
 
     # Masked image
     axs[2, 0].imshow(img_masked_display)
     axs[2, 0].set_title(f'Masked image with only green pixels visible')
     axs[2, 0].axis('off')
+    # plt.imsave('presentation_images/masked.jpg', img_masked_display) # Save the image here if u wanna
 
     # Histogram
     axs[2, 1].imshow(plot_image)
