@@ -16,7 +16,7 @@ def main():
     '''
 
     # Enter parameters.
-    path = 'photos/test_photos/image_13.jpg' # path to input image
+    path = 'photos/test_photos_cropped/image_13.jpg' # path to input image
     output_path = 'results/master_script_output/poster_example.jpg' # output path and filename. This is where your result will be saved. 
     crop = False # whether your photos need to be cropped into a square or not.
     keep_cropped_image = False # If your photos get cropped, choose here whether you want the cropped image to be saved. Definitely do this if you have to crop a lot of photos at once in a for loop or something. It takes forever and you should only have to do it once. 
@@ -40,7 +40,7 @@ def main():
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos\\test_photos_cropped\\image_13.jpg')
+        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos\\test_photos\\image_13.jpg')
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
@@ -87,8 +87,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
 
     # Save the original uncropped image for the grid display (for if your photos are already cropped and in a folder)
     if raw_imgs_path != '':
-        img = plt.imread(raw_imgs_path)
-        og_img = img
+        og_img = plt.imread(raw_imgs_path)
     else:
         og_img = img # Save the original image so it can be included in the grid and saved to file later
 
