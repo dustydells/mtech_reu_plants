@@ -22,7 +22,8 @@ library(egg)
 
 
 ```{r define_functions}
-img_into_dataframe <- function(image_path, cutoff_threshold) {
+img_into_dataframe <- function(image_path, cutoff_threshold, sample_fraction) {
+
   # Extract the file name (regexp pattern matches any characters not a slash ([^/]+) followed by .jpg at the end of the string $
   file_name <- str_extract(image_path, pattern = '([^/]+)\\.jpg$')
   file_name <- sub('\\.jpg$', '', file_name) # replace .jpg with ''
@@ -37,6 +38,8 @@ img_into_dataframe <- function(image_path, cutoff_threshold) {
   img_df <- data.frame(pixel_intensity = img_vector) %>% 
       # Filter out all the gray background pixels. According to histograms, there's a big distribution around .25 and the rest are located after .50. .40 should be a good cutoff point for images manipulated by the ExG vegetative index. 
       filter(pixel_intensity > cutoff_threshold) %>% 
+      # Get a random sample of the dataframe so it stops being HUGE
+      sample_frac(sample_fraction) %>% 
       # Add a column that specifies which file it came from
       mutate(file_name = file_name)
   
@@ -58,7 +61,7 @@ folder <- '../results/mask_experiment_vi_greenhouse'
 image_paths <- list.files(folder, full.names = TRUE)
 
 # Apply df creation function to all paths in the list
-img_dfs <- lapply(image_paths, img_into_dataframe, cutoff_threshold=0.4)
+img_dfs <- lapply(image_paths, img_into_dataframe, cutoff_threshold=0.4, sample_fraction=.001)
 
 # Stitch all the dataframes into one
 all_greenhouse_img_df <- do.call(rbind, img_dfs)
@@ -70,7 +73,9 @@ all_greenhouse_img_df <- do.call(rbind, img_dfs)
 df <- all_greenhouse_img_df %>% 
   mutate(filename_number = as.numeric(gsub('image_', '', file_name))) %>% 
   # Convert file_name to factor with levels ordered by numeric_part
-  mutate(file_name <- factor(file_name, levels = unique(file_name[order(filename_number)])))
+  # mutate(file_name = factor(file_name, levels = unique(file_name[order(filename_number)])))
+    mutate(file_name = factor(file_name, levels = c('image_1','image_2','image_3','image_4','image_5','image_6','image_7','image_8','image_9','image_10')))
+
 
 
 
@@ -79,7 +84,8 @@ ggplot(df, aes(x = file_name, y = pixel_intensity)) +
   labs(
     title = 'Distribution of ExG Vegetation Index Values of Willow Leaves in Greenhouse Photos',
     x = 'Image',
-    y = 'Vegetation Index Value'
+    y = 'Vegetation Index Value',
+    caption = 'Due to large dataframe size, these boxplots display only .1% of pixel values.'
   ) +
     theme(
       panel.background = element_blank(),
