@@ -16,13 +16,13 @@ def main():
     '''
 
     # Enter parameters.
-    path = 'photos/test_photos_cropped/image_13.jpg' # path to input image
-    output_path = 'results/master_script_output/test.jpg' # output path and filename. This is where your result will be saved. 
+    path = 'photos/test_photos_greenhouse/image_10.jpg' # path to input image
+    output_path = 'results/master_script_output/example_greenhouse.jpg' # output path and filename. This is where your result will be saved. 
     crop = False # whether your photos need to be cropped into a square or not.
     keep_cropped_image = False # If your photos get cropped, choose here whether you want the cropped image to be saved. Definitely do this if you have to crop a lot of photos at once in a for loop or something. It takes forever and you should only have to do it once. 
 
     # Determine vegetation index that will be used
-    index_type = 'rgbvi' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
+    index_type = 'exg' # RGBVI worked well for my quadrat photos, ExG worked well on the willow leaf photos - feel free to experiment
 
     # INVESTIGATE HISTOGRAM
     '''
@@ -35,12 +35,12 @@ def main():
 
     # Determine threshold that will differentiate between live and dead plants.
     # Or experiment with skimage filters like otsu and median.
-    green_threshold = 135 # 135 worked well on RGBVI photos. 155 worked well on ExG photos. 
+    green_threshold = 155 # 135 worked well on RGBVI photos. 155 worked well on ExG photos. 
 
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos/raw_photos_numbered/image_21.jpg')
+        run_script(path, output_path, index_type, green_threshold, crop)
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
@@ -141,7 +141,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
 
     # Render the plotnine plot to an image
     fig = plot.draw()
-    fig.savefig('results/plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
+    fig.savefig('results/master_script_output/plotnine_plot.png', dpi=300, bbox_inches='tight', pad_inches=0.1)
     plot_image = plt.imread('results/master_script_output/plotnine_plot.png') # Save the plot here if you wanna
 
     # Explicitly delete the plot object because it kept being referenced by something and slowing things down
@@ -161,7 +161,7 @@ def run_script(path, output_path, index_type, green_threshold, crop, keep_croppe
         # Cropped image
         axs[0, 1].imshow(cropped_img, cmap='gray')
         axs[0, 1].set_title('Cropped image') 
-    else:
+    elif raw_imgs_path != '':
         # Display cropped image from files
         axs[0, 1].imshow(img, cmap='gray')
         axs[0, 1].set_title('Cropped image') 
