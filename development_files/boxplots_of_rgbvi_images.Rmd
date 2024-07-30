@@ -49,16 +49,37 @@ img_into_dataframe <- function(image_path, cutoff_threshold) {
 
 ```
 
+Try stitching all the dataframes together again because it would make everything so much easier to work with
 
+```{r}
+folder <- '../results/mask_experiment_vi_greenhouse'
+
+# Save list of image file names in a variable
+image_paths <- list.files(folder, full.names = TRUE)
+
+# Apply df creation function to all paths in the list
+img_dfs <- lapply(image_paths, img_into_dataframe, cutoff_threshold=0.4)
+
+# Stitch all the dataframes into one
+all_greenhouse_img_df <- do.call(rbind, img_dfs)
+
+```
 
 ```{r visualize_giant_honking_df}
+# Extract numeric part from file_name
+df <- all_greenhouse_img_df %>% 
+  mutate(filename_number = as.numeric(gsub('image_', '', file_name))) %>% 
+  # Convert file_name to factor with levels ordered by numeric_part
+  mutate(file_name <- factor(file_name, levels = unique(file_name[order(filename_number)])))
 
-ggplot(all_greenhouse_img_df, aes(x = file_name, y = pixel_intensity)) +
+
+
+ggplot(df, aes(x = file_name, y = pixel_intensity)) +
   geom_boxplot(fill = 'olivedrab') +
   labs(
-    title = 'Distribution of ExG Vegetative Index Values of Willow Leaves in Greenhouse Photos',
+    title = 'Distribution of ExG Vegetation Index Values of Willow Leaves in Greenhouse Photos',
     x = 'Image',
-    y = 'Vegetative Index Value'
+    y = 'Vegetation Index Value'
   ) +
     theme(
       panel.background = element_blank(),
@@ -68,6 +89,10 @@ ggplot(all_greenhouse_img_df, aes(x = file_name, y = pixel_intensity)) +
       )
 
 ```
+
+
+
+
 
 TINKERING AND OLD CODE BELOW
 
@@ -190,19 +215,5 @@ lapply(full_filenames, img_into_dataframe_into_boxplot, outputdir = outputdir)
 
 ```
 
-Try stitching all the dataframes together again because it would make everything so much easier to work with
 
-```{r}
-folder <- 'results/mask_experiment_vi_greenhouse'
-
-# Save list of image file names in a variable
-image_paths <- list.files(folder, full.names = TRUE)
-
-# Apply df creation function to all paths in the list
-img_dfs <- lapply(image_paths, img_into_dataframe, cutoff_threshold=0.4)
-
-# Stitch all the dataframes into one
-all_greenhouse_img_df <- do.call(rbind, img_dfs)
-
-```
 
