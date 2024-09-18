@@ -16,9 +16,9 @@ def main():
     '''
 
     # Enter parameters.
-    path = 'photos/raw_photos_cropped/image_10.jpg' # path to input image
+    path = 'photos/raw_photos_numbered/image_10.jpg' # path to input image
     output_path = 'results/master_script_output/test.jpg' # output path and filename. This is where your result will be saved. 
-    crop = False # whether your photos need to be cropped into a square or not.
+    crop = True # whether your photos need to be cropped into a square or not.
     keep_cropped_image = False # If your photos get cropped, choose here whether you want the cropped image to be saved. Definitely do this if you have to crop a lot of photos at once in a for loop or something. It takes forever and you should only have to do it once. 
 
     # Determine vegetation index that will be used
@@ -40,7 +40,7 @@ def main():
 
     # Run the process
     if crop == False:
-        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='photos/raw_photos_numbered/image_10.jpg')
+        run_script(path, output_path, index_type, green_threshold, crop, raw_imgs_path='')
 
     elif crop == True: # Run the process, but crop the images to a square first. 
         cropped_img = run_script(path, output_path, index_type, green_threshold, crop)
