@@ -12,7 +12,9 @@ from functions import crop_to_square, apply_vegetation_index, calc_live_plants_p
 
 def main():
     '''
-    Determine your parameters here. 
+    Determine your parameters here.
+
+    I'M MAKING A CHANGE 
     '''
 
     # Enter parameters.
